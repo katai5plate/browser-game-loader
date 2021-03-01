@@ -12,7 +12,7 @@ npm run setupNW
 ## TODO
 
 - [ ] zip をドラッグ＆ドロップすると解凍するようにする。
-- [ ] 解凍したら index.html の場所を探すようにする。
+- [ ] index.html の場所を探し、bgl.json を作成してデータを記録する
 - [ ] ゲームフォルダの package.json に応じて画面サイズを変更できるようにする。
 - [ ] DevTools の呼び出し許可を切り替えられるようにする。
   - package.json で `"chromium-args": "--disable-devtools"` することで無効化できる模様。

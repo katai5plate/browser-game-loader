@@ -4,7 +4,8 @@ nw/*
 !nw/index.html
 !nw/package.json
 !nw/_app/
-!nw/_games/
+nw/_games/*
+!nw/_games/.gitkeep
 
 # Logs
 logs
