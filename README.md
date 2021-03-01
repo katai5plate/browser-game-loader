@@ -6,13 +6,18 @@ A launcher that launches a browser game in a local environment. (For a specific 
 
 ```
 npm i
-npm run setupNW
-npm run setupLibs
+npm run setup
 ```
 
 ### ビルド方法
 
 - 上記手順を終えた状態の `./nw/` を zip にして配布。
+
+### nw.js をバージョンアップする時
+
+- package.json のバージョン情報を書き換える。
+  - `setupNW:download-sdk` の `https://dl.nwjs.io/{ この部分 }/nwjs-sdk-v0.51.2-win-x64.zip`
+  - `setupLibs:license__nwjs` の `https://raw.githubusercontent.com/nwjs/nw.js/{ この部分 }/LICENSE`
 
 ## TODO
 
