@@ -3,6 +3,8 @@ download/*
 nw/*
 !nw/index.html
 !nw/package.json
+!nw/LICENSES.md
+!nw/README.txt
 !nw/_app/
 nw/_games/*
 nw/_app/libs/*

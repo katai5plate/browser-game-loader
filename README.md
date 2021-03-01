@@ -10,6 +10,10 @@ npm run setupNW
 npm run setupLibs
 ```
 
+### ビルド方法
+
+- 上記手順を終えた状態の `./nw/` を zip にして配布。
+
 ## TODO
 
 - [ ] zip をドラッグ＆ドロップすると解凍するようにする。

@@ -19,7 +19,8 @@
     "setupLibs:adm-zip": "cpx -u \"./node_modules/adm-zip/{LICENSE,adm-zip.js}\" \"./nw/_app/libs/adm-zip/\"",
     "setupLibs:preact": "cpx -u \"./node_modules/preact/{LICENSE,dist/preact.module.js}\" \"./nw/_app/libs/preact/\"",
     "setupLibs:htm": "cpx -u \"./node_modules/htm/{LICENSE,dist/htm.module.js}\" \"./nw/_app/libs/htm/\"",
-    "setupLibs:fetch-polyfill": "cpx -u \"./node_modules/fetch-polyfill/{LICENSE,fetch.js}\" \"./nw/_app/libs/fetch-polyfill/\""
+    "setupLibs:fetch-polyfill": "cpx -u \"./node_modules/fetch-polyfill/{LICENSE,fetch.js}\" \"./nw/_app/libs/fetch-polyfill/\"",
+    "setupLibs:license__nwjs": "node scripts/dl \"https://raw.githubusercontent.com/nwjs/nw.js/nw51/LICENSE\" \"LICENSE_nwjs\" && cpx -u \"./download/LICENSE_nwjs\" \"./nw/\""
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
