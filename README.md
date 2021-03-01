@@ -19,4 +19,5 @@ A launcher that launches a browser game in a local environment. (For a specific 
   - [ ] Unity WEBGL
   - [ ] ツクール 2000 / 2003 (EasyRPG)
     - 実装するとなると、ライセンスを GPL-3.0 License に変更する必要がある。
+    - RTP 読めるのかも要確認
     - [ ] 別でダウンロードしてきて使う場合もライセンスを変更する必要があるのか調べたほうがよさそう。
