@@ -3,7 +3,8 @@ import htm from "/_app/libs/htm.module.js";
 const path = require("path");
 const fs = require("fs-extra");
 
-export const GAME_DIR = "./_games";
+export const CWD_PATH = process.cwd().replace(/\\/g, "/");
+export const GAME_DIR = process.cwd().replace(/\\/g, "/") + "/_games";
 
 export const html = htm.bind(h);
 
