@@ -44,11 +44,17 @@ const findGameMetaFiles = (gameDirName) => {
 };
 
 (async () => {
-  document.write(
-    JSON.stringify(
-      findGameMetaFiles(fs.readdirSync(GAME_DIR).slice(-1)[0]),
-      null,
-      2
-    ).replace(/\n/g, "<br/>")
-  );
+  [...document.querySelectorAll("[id^=cp---]")].forEach(async (cpBase) => {
+    const cpName = cpBase.id.match(/cp---([a-zA-Z0-9]*?)$/)[1];
+    cpBase.outerHTML = await (
+      await fetch("./_app/components/" + cpName + ".html")
+    ).text();
+  });
+  // document.write(
+  //   JSON.stringify(
+  //     findGameMetaFiles(fs.readdirSync(GAME_DIR).slice(-1)[0]),
+  //     null,
+  //     2
+  //   ).replace(/\n/g, "<br/>")
+  // );
 })();
