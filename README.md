@@ -27,10 +27,9 @@ npm run setupLibs
   - [ ] phina.js
   - [ ] p5.js
   - [ ] Unity WEBGL
-  - [ ] ツクール 2000 / 2003 (EasyRPG)
-    - 実装するとなると、ライセンスを GPL-3.0 License に変更する必要がある。
-    - RTP 読めるのかも要確認
-    - [ ] 別でダウンロードしてきて使う場合もライセンスを変更する必要があるのか調べたほうがよさそう。
+- 対象外
+  - ツクール 2000 / 2003
+    - EasyRPG 使うと GPL-3.0 License に変更する必要がある。ライセンス的に面倒なのでナシ。
 
 ## USE-CASE
 
@@ -64,7 +63,7 @@ npm run setupLibs
     - nw.exe
     - resources.pak
 - GPL-3.0 License `>=` Apache License 2.0
-  - GPLv3 はコピーレフト（継承）、ALv2 は違う
+  - GPLv3 はコピーレフト（継承/ソース公開）、ALv2 は違う
     - CC BY-SA 4.0 とも互換性がある
   - ライセンス表記は両方ごっちゃにしていいが、GPLv3 を使う場合継承する
   - [ALv2 の説明はここが分かりやすかった](https://yamory.io/blog/about-mit-License/#apache-license%2C-version-2.0%EF%BC%88apache-license-2.0%EF%BC%89)
