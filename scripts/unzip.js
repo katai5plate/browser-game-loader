@@ -19,6 +19,6 @@ const [, , FILENAME, SAVE_DIR_NAME] = process.argv;
   const COPY_TEMP_PATH = DOWNLOAD_DIR + "_temp";
   fs.moveSync(INSIDE_DIR_PATH, COPY_TEMP_PATH, { overwrite: true });
   fs.removeSync(DEST_DIR_PATH);
-  fs.renameSync(COPY_TEMP_PATH, DOWNLOAD_DIR + DEST_DIR_NAME);
+  fs.renameSync(COPY_TEMP_PATH, DOWNLOAD_DIR + DEST_DIR_NAME + "/");
   console.log("COMPLETE " + DEST_DIR_PATH);
 })();

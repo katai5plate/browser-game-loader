@@ -6,10 +6,14 @@
   "author": "katai5plate <katai5plate.sub@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "mergeNW": "run-s mergeNW:*",
-    "mergeNW:download-sdk": "node scripts/dl \"https://dl.nwjs.io/v0.51.2/nwjs-sdk-v0.51.2-win-x64.zip\" \"nw-sdk.zip\"",
-    "mergeNW:unzip-sdk": "node scripts/unzip \"nw-sdk.zip\"",
-    "mergeNW:move-sdk": "cpx \"./download/nw-sdk/*\" \"./nw\""
+    "nw": "nw\\nw.exe",
+    "setupNW": "run-s setupNW:*",
+    "setupNW:clean-nw": "node scripts/cleanNwDir",
+    "setupNW:delete-sdk": "rimraf \"./download/nw-sdk.zip\" \"./download/nw-sdk/*\"",
+    "setupNW:download-sdk": "node scripts/dl \"https://dl.nwjs.io/v0.51.2/nwjs-sdk-v0.51.2-win-x64.zip\" \"nw-sdk.zip\"",
+    "setupNW:unzip-sdk": "rimraf \"./download/nw-sdk/\" && node scripts/unzip \"nw-sdk.zip\"",
+    "setupNW:optimize-sdk": "rimraf \"./download/nw-sdk/{index.html,package.json}\"",
+    "setupNW:move-sdk": "cpx \"./download/nw-sdk/**/*\" \"./nw/\""
   },
   "devDependencies": {
     "axios": "^0.21.1",

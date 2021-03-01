@@ -1,5 +1,8 @@
 download/*
 !.gitkeep
+nw/*
+!nw/index.html
+!nw/package.json
 
 # Logs
 logs
