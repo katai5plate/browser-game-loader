@@ -1,3 +1,5 @@
+// ./nw/ から Git 管理対象以外のファイルを削除する
+
 const fs = require("fs-extra");
 
 const NW_DIR_PATH = process.cwd().replace(/\\/g, "/") + "/nw/";

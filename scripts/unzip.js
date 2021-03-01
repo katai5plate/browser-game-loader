@@ -11,12 +11,15 @@ const [, , FILENAME, SAVE_DIR_NAME] = process.argv;
     ? SAVE_DIR_NAME
     : path.parse(FILENAME).name;
   const DEST_DIR_PATH = DOWNLOAD_DIR + DEST_DIR_NAME;
+  // 解凍
   await extract(DOWNLOAD_DIR + FILENAME, { dir: DEST_DIR_PATH });
   console.log("COPYING...");
   const INSIDE_DIR_PATH = `${DEST_DIR_PATH}/${
     fs.readdirSync(DEST_DIR_PATH)[0]
   }`;
   const COPY_TEMP_PATH = DOWNLOAD_DIR + "_temp";
+  // 解凍すると 指定名/元々のzip名/* という感じになるので、
+  // 一時フォルダに移してから元のフォルダを削除する
   fs.moveSync(INSIDE_DIR_PATH, COPY_TEMP_PATH, { overwrite: true });
   fs.removeSync(DEST_DIR_PATH);
   fs.renameSync(COPY_TEMP_PATH, DOWNLOAD_DIR + DEST_DIR_NAME + "/");
