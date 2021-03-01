@@ -1,13 +1,17 @@
+import { h } from "/_app/libs/preact.module.js";
+import htm from "/_app/libs/htm.module.js";
 const path = require("path");
 const fs = require("fs-extra");
 
-const GAME_DIR = "./_games";
+export const GAME_DIR = "./_games";
+
+export const html = htm.bind(h);
 
 /**
  * ファイルパスがディレクトリかどうか調べる
  * @param {string} filePath
  */
-const isDir = (filePath) => {
+export const isDir = (filePath) => {
   try {
     return fs.statSync(filePath).isDirectory();
   } catch (e) {
@@ -20,7 +24,7 @@ const isDir = (filePath) => {
  * ゲームフォルダから index.html, package.json を検索
  * @param {string} gameDirName
  */
-const findGameMetaFiles = (gameDirName) => {
+export const findGameMetaFiles = (gameDirName) => {
   let paths = [];
   const finder = (x) => {
     for (let filePath of x) {
@@ -41,22 +45,3 @@ const findGameMetaFiles = (gameDirName) => {
       return [...p, { name: base, path: filePath }];
     }, []);
 };
-
-(async () => {
-  const { h, render } = preact;
-  const App = () => h("h1", null, "Hello!");
-  render(h(App), document.body);
-  // [...document.querySelectorAll("[id^=cp---]")].forEach(async (cpBase) => {
-  //   const cpName = cpBase.id.match(/cp---([a-zA-Z0-9]*?)$/)[1];
-  //   cpBase.outerHTML = await (
-  //     await fetch("./_app/components/" + cpName + ".html")
-  //   ).text();
-  // });
-  // document.write(
-  //   JSON.stringify(
-  //     findGameMetaFiles(fs.readdirSync(GAME_DIR).slice(-1)[0]),
-  //     null,
-  //     2
-  //   ).replace(/\n/g, "<br/>")
-  // );
-})();

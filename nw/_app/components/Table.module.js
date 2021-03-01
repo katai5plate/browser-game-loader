@@ -1,4 +1,7 @@
-<table class="table">
+import { h } from "/_app/libs/preact.module.js";
+import htm from "/_app/libs/htm.module.js";
+const html = htm.bind(h);
+export default ({}) => html`<table class="table">
   <thead>
     <tr>
       <th><abbr title="Position">Pos</abbr></th>
@@ -43,4 +46,4 @@
       </td>
     </tr>
   </tbody>
-</table>
+</table>`;

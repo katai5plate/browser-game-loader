@@ -9,7 +9,12 @@
   <body>
     <div id="cp---table" />
     <script src="./_app/libs/fetch.min.js"></script>
-    <script src="./_app/libs/preact.min.js"></script>
-    <script src="./_app/index.js"></script>
+    <script type="module">
+      import { h, Component, render } from "/_app/libs/preact.module.js";
+      import htm from "/_app/libs/htm.module.js";
+      import App from "/_app/App.module.js";
+      const html = htm.bind(h);
+      render(html`<${App} name="World" />`, document.body);
+    </script>
   </body>
 </html>
