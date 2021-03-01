@@ -21,3 +21,24 @@ A launcher that launches a browser game in a local environment. (For a specific 
     - 実装するとなると、ライセンスを GPL-3.0 License に変更する必要がある。
     - RTP 読めるのかも要確認
     - [ ] 別でダウンロードしてきて使う場合もライセンスを変更する必要があるのか調べたほうがよさそう。
+
+## MEMO
+
+- NW.js の NORMAL と SDK の違い
+  - 削除
+    - pnacl/
+    - chromedriver.exe
+    - nacl_irt_x86_64.nexe
+    - nwjc.exe
+    - payload.exe
+  - 変更
+    - swiftshader/
+    - ffmpeg.dll
+    - libEGL.dll
+    - libEGLESv2.dll
+    - node.dll
+    - notification_helper.exe
+    - nw_elf.dll
+    - nw.dll
+    - nw.exe
+    - resources.pak
