@@ -1,9 +1,8 @@
 # Third Party Licenses
 
 - [nw.js](./LICENSE_nwjs)
-
-- [adm-zip](./_app/adm-zip/LICENSE)
-- [bulma](./_app/bulma/LICENSE)
-- [fetch-polyfill](./_app/fetch-polyfill/LICENSE)
-- [htm](./_app/htm/LICENSE)
-- [preact](./_app/preact/LICENSE)
+- [adm-zip](./_app/libs/adm-zip/LICENSE)
+- [bulma](./_app/libs/bulma/LICENSE)
+- [fetch-polyfill](./_app/libs/fetch-polyfill/LICENSE)
+- [htm](./_app/libs/htm/LICENSE)
+- [preact](./_app/libs/preact/LICENSE)
