@@ -15,6 +15,7 @@ A launcher that launches a browser game in a local environment. (For a specific 
   - [ ] ツクール MZ
   - [ ] Phaser
   - [ ] phina.js
+  - [ ] p5.js
   - [ ] Unity WEBGL
   - [ ] ツクール 2000 / 2003 (EasyRPG)
     - 実装するとなると、ライセンスを GPL-3.0 License に変更する必要がある。
