@@ -5,6 +5,7 @@ nw/*
 !nw/package.json
 !nw/_app/
 nw/_games/*
+nw/_app/libs/*
 !nw/_games/.gitkeep
 
 # Logs
@@ -91,7 +92,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# dist
 
 # Gatsby files
 .cache/

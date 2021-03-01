@@ -13,7 +13,13 @@
     "setupNW:download-sdk": "node scripts/dl \"https://dl.nwjs.io/v0.51.2/nwjs-sdk-v0.51.2-win-x64.zip\" \"nw-sdk.zip\"",
     "setupNW:unzip-sdk": "rimraf \"./download/nw-sdk/\" && node scripts/unzip \"nw-sdk.zip\"",
     "setupNW:optimize-sdk": "rimraf \"./download/nw-sdk/{index.html,package.json}\"",
-    "setupNW:move-sdk": "cpx \"./download/nw-sdk/**/*\" \"./nw/\""
+    "setupNW:move-sdk": "cpx \"./download/nw-sdk/**/*\" \"./nw/\"",
+    "setupLibs": "run-s setupLibs:*",
+    "setupLibs:bulma": "cpx -u \"./node_modules/bulma/{LICENSE,css/bulma.min.css}\" \"./nw/_app/libs/bulma/\"",
+    "setupLibs:adm-zip": "cpx -u \"./node_modules/adm-zip/{LICENSE,adm-zip.js}\" \"./nw/_app/libs/adm-zip/\"",
+    "setupLibs:preact": "cpx -u \"./node_modules/preact/{LICENSE,dist/preact.module.js}\" \"./nw/_app/libs/preact/\"",
+    "setupLibs:htm": "cpx -u \"./node_modules/htm/{LICENSE,dist/htm.module.js}\" \"./nw/_app/libs/htm/\"",
+    "setupLibs:fetch-polyfill": "cpx -u \"./node_modules/fetch-polyfill/{LICENSE,fetch.js}\" \"./nw/_app/libs/fetch-polyfill/\""
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
@@ -25,5 +31,11 @@
     "preact": "^10.5.12",
     "progress": "^2.0.3",
     "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.3",
+    "bulma": "^0.9.2",
+    "fetch-polyfill": "^0.8.2",
+    "htm": "^3.0.4"
   }
 }

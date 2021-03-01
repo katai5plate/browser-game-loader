@@ -3,17 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./_app/libs/bulma.min.css" />
+    <link rel="stylesheet" href="/_app/libs/bulma/css/bulma.min.css" />
     <title>Document</title>
   </head>
   <body>
-    <script src="/_app/libs/fetch.min.js"></script>
+    <script src="/_app/libs/fetch-polyfill/fetch.js"></script>
     <script type="module">
-      import { h, Component, render } from "/_app/libs/preact.module.js";
-      import htm from "/_app/libs/htm.module.js";
+      import { html, renderer } from "/_app/utils.module.js";
       import App from "/_app/App.module.js";
-      const html = htm.bind(h);
-      render(html`<${App} />`, document.body);
+      renderer()(html`<${App} />`, document.body);
     </script>
   </body>
 </html>

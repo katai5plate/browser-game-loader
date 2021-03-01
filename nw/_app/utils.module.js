@@ -1,11 +1,12 @@
-import { h } from "/_app/libs/preact.module.js";
-import htm from "/_app/libs/htm.module.js";
+import { h, render } from "/_app/libs/preact/dist/preact.module.js";
+import htm from "/_app/libs/htm/dist/htm.module.js";
 const path = require("path");
 const fs = require("fs-extra");
 
 export const CWD_PATH = process.cwd().replace(/\\/g, "/");
 export const GAME_DIR = process.cwd().replace(/\\/g, "/") + "/_games";
 
+export const renderer = () => render;
 export const html = htm.bind(h);
 
 /**
