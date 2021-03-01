@@ -9,4 +9,3 @@ A launcher that launches a browser game in a local environment. (For a specific 
 - [ ] ゲームフォルダの package.json に応じて画面サイズを変更できるようにする。
 - [ ] コンソールの呼び出し許可を切り替えられるようにする。
 - [ ] 内部の txt, md, html ファイル ( 可能なら pdf も ) をビューワーとして読めるようにする。
-- [ ] 
