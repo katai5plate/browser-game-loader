@@ -8,6 +8,7 @@ A launcher that launches a browser game in a local environment. (For a specific 
 - [ ] 解凍したら index.html の場所を探すようにする。
 - [ ] ゲームフォルダの package.json に応じて画面サイズを変更できるようにする。
 - [ ] DevTools の呼び出し許可を切り替えられるようにする。
+  - package.json で `"chromium-args": "--disable-devtools"` することで無効化できる模様。
 - [ ] 内部の txt, md, html ファイル ( 可能なら pdf も ) をビューワーとして読めるようにする。
   - [ ] 設定でビューワー対象から除外するファイルをワイルドカードか正規表現で指定できるようにする。
 - 動作対象
@@ -25,7 +26,7 @@ A launcher that launches a browser game in a local environment. (For a specific 
 ## MEMO
 
 - NW.js の NORMAL と SDK の違い
-  - 削除
+  - 削除 (NORMAL から削除しても普通に DevTools 開ける模様)
     - pnacl/
     - chromedriver.exe
     - nacl_irt_x86_64.nexe
