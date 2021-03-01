@@ -1,6 +1,5 @@
 const path = require("path");
 const fs = require("fs-extra");
-const { resolve } = require("path");
 
 const GAME_DIR = "./_games";
 
@@ -44,12 +43,15 @@ const findGameMetaFiles = (gameDirName) => {
 };
 
 (async () => {
-  [...document.querySelectorAll("[id^=cp---]")].forEach(async (cpBase) => {
-    const cpName = cpBase.id.match(/cp---([a-zA-Z0-9]*?)$/)[1];
-    cpBase.outerHTML = await (
-      await fetch("./_app/components/" + cpName + ".html")
-    ).text();
-  });
+  const { h, render } = preact;
+  const App = () => h("h1", null, "Hello!");
+  render(h(App), document.body);
+  // [...document.querySelectorAll("[id^=cp---]")].forEach(async (cpBase) => {
+  //   const cpName = cpBase.id.match(/cp---([a-zA-Z0-9]*?)$/)[1];
+  //   cpBase.outerHTML = await (
+  //     await fetch("./_app/components/" + cpName + ".html")
+  //   ).text();
+  // });
   // document.write(
   //   JSON.stringify(
   //     findGameMetaFiles(fs.readdirSync(GAME_DIR).slice(-1)[0]),
