@@ -6,7 +6,7 @@
   "author": "katai5plate <katai5plate.sub@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "nw": "nw\\nw.exe",
+    "start": "nw\\nw.exe",
     "setupNW": "run-s setupNW:*",
     "setupNW:clean-nw": "node scripts/cleanNwDir",
     "setupNW:delete-sdk": "rimraf \"./download/nw-sdk.zip\" \"./download/nw-sdk/*\"",
