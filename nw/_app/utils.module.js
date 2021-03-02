@@ -1,4 +1,8 @@
-import { h, render } from "/_app/libs/preact/dist/preact.module.js";
+import {
+  h,
+  render,
+  Fragment as _Fragment,
+} from "/_app/libs/preact/dist/preact.module.js";
 import htm from "/_app/libs/htm/dist/htm.module.js";
 const path = require("path");
 const fs = require("fs-extra");
@@ -8,6 +12,7 @@ export const GAME_DIR = process.cwd().replace(/\\/g, "/") + "/_games";
 
 export const renderer = () => render;
 export const html = htm.bind(h);
+export const Fragment = _Fragment;
 
 /**
  * ファイルパスがディレクトリかどうか調べる

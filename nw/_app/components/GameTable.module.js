@@ -1,7 +1,8 @@
-import { html, isDir, GAME_DIR } from "/_app/utils.module.js";
+import { html, isDir, Fragment, GAME_DIR } from "/_app/utils.module.js";
 const fs = require("fs-extra");
 
 export default ({}) => html`
+<${Fragment}>
   <table class="table">
     <thead>
       <tr>
@@ -25,4 +26,5 @@ export default ({}) => html`
         )}
     </tbody>
   </table>
+</${Fragment}>
 `;
