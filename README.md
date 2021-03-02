@@ -77,3 +77,4 @@ npm run setup
     - CC BY-SA 4.0 とも互換性がある
   - ライセンス表記は両方ごっちゃにしていいが、GPLv3 を使う場合継承する
   - [ALv2 の説明はここが分かりやすかった](https://yamory.io/blog/about-mit-License/#apache-license%2C-version-2.0%EF%BC%88apache-license-2.0%EF%BC%89)
+- Fooks を導入して、JSON を DB 代わりにやり取りするシステムにしたほうが良さそう
