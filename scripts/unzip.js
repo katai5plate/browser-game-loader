@@ -1,4 +1,4 @@
-const extract = require("extract-zip");
+const Zip = require("adm-zip");
 const fs = require("fs-extra");
 const path = require("path");
 
@@ -12,7 +12,12 @@ const [, , FILENAME, SAVE_DIR_NAME] = process.argv;
     : path.parse(FILENAME).name;
   const DEST_DIR_PATH = DOWNLOAD_DIR + DEST_DIR_NAME;
   // 解凍
-  await extract(DOWNLOAD_DIR + FILENAME, { dir: DEST_DIR_PATH });
+  const zip = new Zip(DOWNLOAD_DIR + FILENAME);
+  await new Promise((resolve, reject) =>
+    zip.extractAllToAsync(DEST_DIR_PATH, true, (e) =>
+      e ? reject(e) : resolve()
+    )
+  );
   console.log("COPYING...");
   const INSIDE_DIR_PATH = `${DEST_DIR_PATH}/${
     fs.readdirSync(DEST_DIR_PATH)[0]
