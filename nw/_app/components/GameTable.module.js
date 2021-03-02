@@ -17,12 +17,14 @@ export default ({}) => html`
         .readdirSync(GAME_DIR)
         .filter((folderName) => isDir(`${GAME_DIR}/${folderName}`))
         .map(
-          (folderName, index) => html`<tr>
-            <th>${index}</th>
-            <td>${folderName}</td>
-            <td>???</td>
-            <td>${folderName}</td>
-          </tr>`
+          (folderName, index) => html`
+            <tr>
+              <th>${index}</th>
+              <td>${folderName}</td>
+              <td>???</td>
+              <td>${folderName}</td>
+            </tr>
+          `
         )}
     </tbody>
   </table>
