@@ -27,7 +27,7 @@ npm run setup
 - [ ] ゲームフォルダの package.json に応じて画面サイズを変更できるようにする。
 - [ ] DevTools の呼び出し許可を切り替えられるようにする。
   - package.json で `"chromium-args": "--disable-devtools"` することで無効化できる模様。
-  - `require('nw.gui').Window.get().on("devtools-opened",()=>win.closeDevTools())` っていう手もある。
+  - `(w=>w.on("devtools-opened",()=>w.closeDevTools()))(require('nw.gui').Window.get())` っていう手もある。
 - [ ] 内部の txt, md, html ファイル ( 可能なら pdf も ) をビューワーとして読めるようにする。
   - [ ] 設定でビューワー対象から除外するファイルをワイルドカードか正規表現で指定できるようにする。
 - 動作対象
