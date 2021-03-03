@@ -15,13 +15,14 @@
     "setup:nw:unzip-sdk": "rimraf \"./download/nw-sdk/\" && node scripts/unzip \"nw-sdk.zip\"",
     "setup:nw:optimize-sdk": "rimraf \"./download/nw-sdk/{index.html,package.json}\"",
     "setup:nw:move-sdk": "cpx \"./download/nw-sdk/**/*\" \"./nw/\"",
-    "setup-libs": "run-s setup:libs:*",
-    "setup:Libs:bulma": "cpx -u \"./node_modules/bulma/{LICENSE,css/bulma.min.css}\" \"./nw/_app/libs/bulma/\"",
-    "setup:Libs:adm-zip": "cpx -u \"./node_modules/adm-zip/{LICENSE,adm-zip.js}\" \"./nw/_app/libs/adm-zip/\"",
-    "setup:Libs:preact": "cpx -u \"./node_modules/preact/{LICENSE,dist/preact.module.js}\" \"./nw/_app/libs/preact/\"",
-    "setup:Libs:htm": "cpx -u \"./node_modules/htm/{LICENSE,dist/htm.module.js}\" \"./nw/_app/libs/htm/\"",
-    "setup:Libs:fetch-polyfill": "cpx -u \"./node_modules/fetch-polyfill/{LICENSE,fetch.js}\" \"./nw/_app/libs/fetch-polyfill/\"",
-    "setup:Libs:license__nwjs": "node scripts/dl \"https://raw.githubusercontent.com/nwjs/nw.js/nw51/LICENSE\" \"LICENSE_nwjs\" && cpx -u \"./download/LICENSE_nwjs\" \"./nw/\""
+    "setup-libs": "run-s setup:libs:*:*",
+    "setup:libs:bulma": "cpx -u \"./node_modules/bulma/{LICENSE,css/bulma.min.css}\" \"./nw/_app/libs/bulma/\"",
+    "setup:libs:adm-zip": "cpx -u \"./node_modules/adm-zip/{LICENSE,adm-zip.js}\" \"./nw/_app/libs/adm-zip/\"",
+    "setup:libs:preact": "cpx -u \"./node_modules/preact/{LICENSE,dist/preact.module.js,hooks/dist/hooks.module.js}\" \"./nw/_app/libs/preact/\"",
+    "setup:libs:preact:replace": "node scripts/replaceCode \"./nw/_app/libs/preact/hooks/dist/hooks.module.js\" \"from\\\"preact\\\"\" \"from\\\"/_app/libs/preact/dist/preact.module.js\\\"\"",
+    "setup:libs:htm": "cpx -u \"./node_modules/htm/{LICENSE,dist/htm.module.js}\" \"./nw/_app/libs/htm/\"",
+    "setup:libs:fetch-polyfill": "cpx -u \"./node_modules/fetch-polyfill/{LICENSE,fetch.js}\" \"./nw/_app/libs/fetch-polyfill/\"",
+    "setup:libs:nwjs:license": "node scripts/dl \"https://raw.githubusercontent.com/nwjs/nw.js/nw51/LICENSE\" \"LICENSE_nwjs\" && cpx -u \"./download/LICENSE_nwjs\" \"./nw/\""
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
