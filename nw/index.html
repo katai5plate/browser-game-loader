@@ -9,9 +9,9 @@
   <body>
     <script src="/_app/libs/fetch-polyfill/fetch.js"></script>
     <script type="module">
-      import { html, renderer } from "/_app/utils.module.js";
+      import { html, render } from "/_app/utils.module.js";
       import App from "/_app/App.module.js";
-      renderer()(html`<${App} />`, document.body);
+      render(html`<${App} />`, document.body);
     </script>
   </body>
 </html>

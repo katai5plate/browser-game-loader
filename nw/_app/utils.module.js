@@ -1,9 +1,6 @@
-import {
-  h,
-  render,
-  Fragment as _Fragment,
-} from "/_app/libs/preact/dist/preact.module.js";
-import {} from "/_app/libs/preact/hooks/dist/hooks.module.js";
+import { h } from "/_app/libs/preact/dist/preact.module.js";
+export { render, Fragment } from "/_app/libs/preact/dist/preact.module.js";
+export { useState } from "/_app/libs/preact/hooks/dist/hooks.module.js";
 import htm from "/_app/libs/htm/dist/htm.module.js";
 const path = require("path");
 const fs = require("fs-extra");
@@ -11,9 +8,7 @@ const fs = require("fs-extra");
 export const CWD_PATH = process.cwd().replace(/\\/g, "/");
 export const GAME_DIR = CWD_PATH + "/_games";
 
-export const renderer = () => render;
 export const html = htm.bind(h);
-export const Fragment = _Fragment;
 
 /**
  * ファイルパスがディレクトリかどうか調べる
