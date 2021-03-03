@@ -1,14 +1,19 @@
 download/*
-!.gitkeep
-nw/*
-!nw/index.html
-!nw/package.json
-!nw/LICENSES.md
-!nw/README.txt
-!nw/_app/
+!download/.gitkeep
+
+nw/*.exe
+nw/*.dll
+nw/*.dat
+nw/*.nexe
+nw/*.pak
+nw/*.bin
+nw/credits.html
+nw/locales/
+nw/pnacl/
+nw/swiftshader/
+nw/_app/libs/
 nw/_games/*
-nw/_app/libs/*
-!nw/_games/.gitkeep
+!nw/_games/data.json
 
 # Logs
 logs
