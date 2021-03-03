@@ -1,5 +1,5 @@
 {
   "name": "browser-game-loader",
   "main": "index.html",
-  "chromium-args": ""
+  "chromium-args": "--auto-open-devtools-for-tabs "
 }

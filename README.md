@@ -7,6 +7,7 @@ A launcher that launches a browser game in a local environment. (For a specific 
 ```
 npm i
 npm run setup
+npm start
 ```
 
 ### ビルド方法
