@@ -3,12 +3,13 @@ import {
   render,
   Fragment as _Fragment,
 } from "/_app/libs/preact/dist/preact.module.js";
+import {} from "/_app/libs/preact/hooks/dist/hooks.module.js";
 import htm from "/_app/libs/htm/dist/htm.module.js";
 const path = require("path");
 const fs = require("fs-extra");
 
 export const CWD_PATH = process.cwd().replace(/\\/g, "/");
-export const GAME_DIR = process.cwd().replace(/\\/g, "/") + "/_games";
+export const GAME_DIR = CWD_PATH + "/_games";
 
 export const renderer = () => render;
 export const html = htm.bind(h);
