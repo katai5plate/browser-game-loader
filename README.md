@@ -32,15 +32,21 @@ npm start
 - [ ] 内部の txt, md, html ファイル ( 可能なら pdf も ) をビューワーとして読めるようにする。
   - [ ] 設定でビューワー対象から除外するファイルをワイルドカードか正規表現で指定できるようにする。
 - 動作対象
-  - [ ] ツクール MV
-  - [ ] ツクール MZ
-  - [ ] Phaser
-  - [ ] phina.js
-  - [ ] p5.js
-  - [ ] Unity WEBGL
-- 対象外
-  - ツクール 2000 / 2003
-    - EasyRPG 使うと GPL-3.0 License に変更する必要がある。ライセンス的に面倒なのでナシ。
+  - WEB 系ゲーム
+    - ツクール MV/MZ
+      - [ ] ツクール MV
+      - [ ] ツクール MZ
+    - [ ] Unity WEBGL
+    - その他
+      - [ ] Node.js 系
+      - [ ] HTML 全般
+  - EXE 系ゲーム
+    - [ ] ツクール 2000/2003
+    - [ ] ツクール XP/VX/VXAce
+    - [ ] Unity
+    - [ ] HSP
+    - [ ] ウディタ
+    - [ ] その他
 
 ## USE-CASE
 
@@ -79,3 +85,33 @@ npm start
   - ライセンス表記は両方ごっちゃにしていいが、GPLv3 を使う場合継承する
   - [ALv2 の説明はここが分かりやすかった](https://yamory.io/blog/about-mit-License/#apache-license%2C-version-2.0%EF%BC%88apache-license-2.0%EF%BC%89)
 - Fooks を導入して、JSON を DB 代わりにやり取りするシステムにしたほうが良さそう
+- 各 type 判定方法 (デフォルトタイトルはフォルダ名から)
+  - "Web"
+    - index.html がある (タイトルは title タグから)
+    - "Node.js"
+      - package.json がある
+      - RPG ツクール以外のエンジンは判別しない
+      - "RPG MV/MZ"
+        - data/System.json がある (タイトルは gameTitle の値から)
+        - "RPG MV"
+          - data/System.json に advanced がない
+        - "RPG MZ"
+          - data/System.json に advanced がある
+    - "Unity WebGL"
+      - `<div id="unity-container" class="unity-desktop">` がある
+  - "RPG 2K/2K3"
+    - RPG_RT.ini がある (タイトルは GameTitle の値から)
+    - 2K と 2K3 を判別する方法はわからず。
+  - "Executable"
+    - 1 つでも exe ファイルがある (タイトルは 1 つめの exe のファイル名から)
+    - "RPG XP/VX/VXAce"
+      - Game.ini がある (タイトルは Title の値から)
+    - "Wolf RPG"
+      - Config.exe がある
+      - タイトルは Data/BasicData/Game.dat のバイナリ中に、 `09 00 00 00` の後 4 バイト分で指定された長さの -1 だけ、後述されている。
+        - 例えば `09 00 00 00 | 07 00 00 00 | 88 d9 90 a2 8a 45` だったら `異世界` になる。
+        - [詳細...](http://kameske027.php.xdomain.jp/analysis_woditor.php)
+    - "Unity"
+      - UnityEngine.dll がある
+    - "HSP"
+      - 1 つめの exe のバイナリ中に `48 53 50 45 52 52 4f` (HSPERROR) がある
