@@ -31,6 +31,7 @@ npm start
   - `(w=>w.on("devtools-opened",()=>w.closeDevTools()))(require('nw.gui').Window.get())` っていう手もある。
 - [ ] 内部の txt, md, html ファイル ( 可能なら pdf も ) をビューワーとして読めるようにする。
   - [ ] 設定でビューワー対象から除外するファイルをワイルドカードか正規表現で指定できるようにする。
+- [ ] ゲームフォルダの名前変更や、別名の付与をできるようにする。
 - 動作対象
   - WEB 系ゲーム
     - ツクール MV/MZ
@@ -87,14 +88,18 @@ npm start
   - ライセンス表記は両方ごっちゃにしていいが、GPLv3 を使う場合継承する
   - [ALv2 の説明はここが分かりやすかった](https://yamory.io/blog/about-mit-License/#apache-license%2C-version-2.0%EF%BC%88apache-license-2.0%EF%BC%89)
 - Fooks を導入して、JSON を DB 代わりにやり取りするシステムにしたほうが良さそう
-- 各 type 判定方法 (デフォルトタイトルはフォルダ名から)
+- 各 type / title 判定方法
+  - 基本的にタイトルらしきものが見つからなければフォルダ名をデフォルトタイトルとする
   - "Web"
-    - index.html がある (タイトルは title タグから)
+    - index.html がある
+    - タイトルは title タグがあればその値
     - "Node.js"
       - package.json がある
+      - タイトルは title タグが見つからない場合のみ package.json の name から
       - RPG ツクール以外のエンジンは判別しない
       - "RPG MV/MZ"
-        - data/System.json がある (タイトルは gameTitle の値から)
+        - data/System.json がある
+        - タイトルは gameTitle の値から
         - "RPG MV"
           - data/System.json に advanced がない
         - "RPG MZ"
@@ -102,12 +107,15 @@ npm start
     - "Unity WebGL"
       - `<div id="unity-container" class="unity-desktop">` がある
   - "RPG 2K/2K3"
-    - RPG_RT.ini がある (タイトルは GameTitle の値から)
-    - 2K と 2K3 を判別する方法はわからず。
+    - RPG_RT.ini がある
+    - タイトルは GameTitle の値から
+    - 2K と 2K3 を判別する方法は不明。
   - "Executable"
-    - 1 つでも exe ファイルがある (タイトルは 1 つめの exe のファイル名から)
+    - 1 つでも exe ファイルがある
+    - タイトルはフォルダ名から
     - "RPG XP/VX/VXAce"
-      - Game.ini がある (タイトルは Title の値から)
+      - Game.ini がある
+      - タイトルは Game.ini の Title の値から
     - "Wolf RPG"
       - Config.exe がある
       - タイトルは Data/BasicData/Game.dat のバイナリ中に、 `09 00 00 00` の後 4 バイト分で指定された長さの -1 だけ、後述されている。
@@ -115,5 +123,7 @@ npm start
         - [詳細...](http://kameske027.php.xdomain.jp/analysis_woditor.php)
     - "Unity"
       - UnityEngine.dll がある
+      - タイトルはフォルダ名から
     - "HSP"
       - 1 つめの exe のバイナリ中に `48 53 50 45 52 52 4f` (HSPERROR) がある
+      - タイトルはフォルダ名から
