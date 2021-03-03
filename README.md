@@ -41,7 +41,9 @@ npm start
       - [ ] Node.js 系
       - [ ] HTML 全般
   - EXE 系ゲーム
-    - [ ] ツクール 2000/2003
+    - ツクール 2000/2003
+      - [ ] EXE あり
+      - [ ] EXE なし
     - [ ] ツクール XP/VX/VXAce
     - [ ] Unity
     - [ ] HSP
