@@ -31,6 +31,7 @@
     "cpx": "^1.5.0",
     "fs-extra": "^9.1.0",
     "npm-run-all": "^4.1.5",
+    "nwjs-types": "^1.0.0",
     "progress": "^2.0.3",
     "rimraf": "^3.0.2"
   },
