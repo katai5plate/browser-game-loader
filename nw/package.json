@@ -1,5 +1,6 @@
 {
   "name": "browser-game-loader",
   "main": "index.html",
-  "chromium-args": "--auto-open-devtools-for-tabs "
+  "chromium-args": "--force-color-profile=srgb --auto-open-devtools-for-tabs",
+  "js-flags": "--expose-gc"
 }
