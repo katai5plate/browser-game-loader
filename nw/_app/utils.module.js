@@ -61,12 +61,14 @@ export const mockGameData = {
   folderName: "game-mv",
   title: "MV製ゲーム",
   alias: "MVのやつ",
-  isWEB: true,
+  isHTML: true,
   type: "RPG_MAKER_MV",
   updatedAt: "2021-03-07T09:55:24.323Z",
   playedAt: "2021-03-07T09:55:24.323Z",
-  width: 816,
-  height: 624,
+  screenSize: {
+    width: 816,
+    height: 624,
+  },
   exec: {
     path: "www/index.html",
     name: "index.html",

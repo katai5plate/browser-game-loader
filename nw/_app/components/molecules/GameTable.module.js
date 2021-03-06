@@ -42,8 +42,8 @@ export default (props) => html`
                   return _a < _b ? a : b;
                 });
                 const win = nw.Window.open(path, {
-                  width: g.width || width,
-                  height: g.height || height,
+                  width: g?.screenSize?.width || width,
+                  height: g?.screenSize?.height || height,
                   position: "center",
                   icon: g.icon,
                 });

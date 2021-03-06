@@ -1,37 +1,56 @@
 type GetProps<C> = C extends (props: infer R) => any ? R : never;
 
 interface GameData {
+  /** 取得されたファイル名 */
   folderName: string;
+  /** 取得されたゲームタイトル */
   title: string;
+  /** ユーザーが自由に変更可能なゲームタイトル */
   alias: string;
-  isWEB: boolean;
+  /** HTML ゲームか */
+  isHTML: boolean;
+  /** 取得されたゲームタイプ (プラグインによって選出) */
   type: string;
+  /** 更新日時 */
   updatedAt: string;
+  /** プレイ日時 */
   playedAt: string;
-  width: number;
-  height: number;
-  icon?: string;
-  exec?: {
-    path: string;
-    name: string;
-  };
+  /** 取得された画面の大きさ */
   screenSize?: {
+    /** 幅 */
     width: number;
+    /** 高さ */
     height: number;
   };
+  /** 取得されたアイコンのパス */
+  icon?: string;
+  /** 実行ファイル情報 */
+  exec?: {
+    /** パス */
+    path: string;
+    /** ファイル名 */
+    name: string;
+  };
+  /** 取得されたファイルのリスト */
   files: string[];
-  indexHTML: {
+  /** index.html の情報 */
+  indexHTML?: {
+    /** title タグの内容（複数ある場合は最後のタグ） */
     title?: string;
+    /** meta タグの内容リスト */
     meta?: { name?: string; [attr: string]: string }[];
+    /** link タグの内容リスト */
     link?: { rel?: string; [attr: string]: string }[];
+    /** script タグの内容リスト */
     script?: {
-      type?: string;
-      src?: string;
+      /** innerText の文字数 */
       codeLength?: number;
+      /** attributes の内容 */
       [attr: string]: string | number;
     }[];
   };
-  packageJSON: {
+  /** package.json の情報 */
+  packageJSON?: {
     name?: string;
     main?: string;
     "js-flags"?: string;
