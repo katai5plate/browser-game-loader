@@ -6,8 +6,8 @@ import {
   getServerUrl,
   INIT_MESSAGES,
 } from "/_app/utils.module.js";
-import List from "./components/pages/List.module.js";
-import Loading from "./components/pages/Loading.module.js";
+import List from "./components/templates/List.module.js";
+import Loading from "./components/templates/Loading.module.js";
 
 export default () => {
   const [messages, setMessages] = useState(INIT_MESSAGES.INIT);
