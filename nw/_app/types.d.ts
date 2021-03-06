@@ -33,37 +33,6 @@ interface GameData {
   };
   /** 取得されたファイルのリスト */
   files: string[];
-  /** index.html の情報 */
-  indexHTML?: {
-    /** title タグの内容（複数ある場合は最後のタグ） */
-    title?: string;
-    /** meta タグの内容リスト */
-    meta?: { name?: string; [attr: string]: string }[];
-    /** link タグの内容リスト */
-    link?: { rel?: string; [attr: string]: string }[];
-    /** script タグの内容リスト */
-    script?: {
-      /** innerText の文字数 */
-      codeLength?: number;
-      /** attributes の内容 */
-      [attr: string]: string | number;
-    }[];
-  };
-  /** package.json の情報 */
-  packageJSON?: {
-    name?: string;
-    main?: string;
-    "js-flags"?: string;
-    "chromium-args"?: string;
-    window?: {
-      title?: string;
-      width?: number | string;
-      height?: number | string;
-      icon?: string;
-      [key: string]: any;
-    };
-    [key: string]: any;
-  };
 }
 
 type _PluginFile_FileReader = {
