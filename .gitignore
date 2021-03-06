@@ -13,7 +13,6 @@ nw/pnacl/
 nw/swiftshader/
 nw/_app/libs/
 nw/_games/*
-!nw/_games/data.json
 
 # Logs
 logs
