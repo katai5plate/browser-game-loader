@@ -1,0 +1,34 @@
+{
+  "name": "UNITY_WEBGL",
+  "description": "HTML5 ビルドされた Unity ゲーム",
+  "execFile": "index.html",
+  "test": {
+    "includes": [":EXEC_FILE"],
+    "excludes": [],
+    "analyze": [
+      {
+        "type": "HTML",
+        "file": ":EXEC_FILE",
+        "position": ["body", "#unity-container", ".unity-desktop"],
+        "expect": { "method": "IS_TRUTHY", "result": true }
+      }
+    ]
+  },
+  "address": {
+    "title": {
+      "type": "HTML",
+      "file": ":EXEC_FILE",
+      "position": ["head", "title"]
+    },
+    "width": {
+      "type": "TEXT_REGEX",
+      "file": ":EXEC_FILE",
+      "position": ["canvas.style.width = \"(\\d+)px\"", 1]
+    },
+    "height": {
+      "type": "TEXT_REGEX",
+      "file": ":EXEC_FILE",
+      "position": ["canvas.style.height = \"(\\d+)px\"", 1]
+    }
+  }
+}

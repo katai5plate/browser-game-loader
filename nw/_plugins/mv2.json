@@ -1,0 +1,54 @@
+{
+  "name": "RPG_MV_COM",
+  "description": "Community_Basic が設定された RPGツクールMV",
+  "execFile": "index.html",
+  "test": {
+    "includes": [
+      ":EXEC_FILE",
+      "package.json",
+      "data/System.json",
+      "js/plugins.js",
+      "js/plugins/Community_Basic.js"
+    ],
+    "excludes": [],
+    "analyze": [
+      {
+        "type": "JSON",
+        "file": "data/System.json",
+        "position": ["advanced"],
+        "expect": { "method": "IS_TRUTHY", "result": false }
+      },
+      {
+        "type": "TEXT_REGEX",
+        "file": "js/plugins.js",
+        "position": [
+          "\"name\"\\s+:\\s+\"Community_Basic\"\\s+,\\s+\"status\"\\s+:\\s+true"
+        ],
+        "expect": { "method": "IS_TRUTHY", "result": true }
+      }
+    ]
+  },
+  "address": {
+    "title": {
+      "type": "JSON",
+      "file": "data/System.json",
+      "position": ["gameTitle"]
+    },
+    "width": {
+      "type": "TEXT_REGEX",
+      "file": "js/plugins.js",
+      "position": [
+        "Community_Basic.*?screenWidth\"\\s*:\\s*\"(\\d+)\".*?screenHeight\"\\s*:\\s*\"(\\d+)\"",
+        1
+      ]
+    },
+    "height": {
+      "type": "TEXT_REGEX",
+      "file": "js/plugins.js",
+      "position": [
+        "Community_Basic.*?screenWidth\"\\s*:\\s*\"(\\d+)\".*?screenHeight\"\\s*:\\s*\"(\\d+)\"",
+        2
+      ]
+    }
+  }
+}

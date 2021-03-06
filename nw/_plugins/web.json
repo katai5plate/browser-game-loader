@@ -1,0 +1,16 @@
+{
+  "name": "WEB",
+  "description": "WEB 上で実行可能な形式",
+  "execFile": "index.html",
+  "test": {
+    "includes": [":EXEC_FILE"],
+    "excludes": []
+  },
+  "address": {
+    "title": {
+      "type": "HTML",
+      "file": ":EXEC_FILE",
+      "position": ["head", "title"]
+    }
+  }
+}

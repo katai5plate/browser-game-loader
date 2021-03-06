@@ -1,0 +1,20 @@
+{
+  "name": "NODE_JS",
+  "description": "Node.js で実行可能な形式",
+  "execFile": {
+    "type": "JSON",
+    "file": "package.json",
+    "position": ["main"]
+  },
+  "test": {
+    "includes": [":EXEC_FILE", "package.json"],
+    "excludes": []
+  },
+  "address": {
+    "title": {
+      "type": "JSON",
+      "file": "package.json",
+      "position": ["name"]
+    }
+  }
+}

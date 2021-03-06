@@ -1,0 +1,34 @@
+{
+  "name": "RPG_MZ",
+  "description": "RPGツクールMZ",
+  "execFile": "index.html",
+  "test": {
+    "includes": [":EXEC_FILE", "package.json", "data/System.json"],
+    "excludes": [],
+    "analyze": [
+      {
+        "type": "JSON",
+        "file": "data/System.json",
+        "position": ["advanced"],
+        "expect": { "method": "IS_TRUTHY", "result": true }
+      }
+    ]
+  },
+  "address": {
+    "title": {
+      "type": "JSON",
+      "file": "data/System.json",
+      "position": ["gameTitle"]
+    },
+    "width": {
+      "type": "JSON",
+      "file": "data/System.json",
+      "position": ["advanced", "screenWidth"]
+    },
+    "height": {
+      "type": "JSON",
+      "file": "data/System.json",
+      "position": ["advanced", "screenHeight"]
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "RPG_MV_LEG",
+  "description": "Community_Basic 未設定の RPGツクールMV",
+  "execFile": "index.html",
+  "test": {
+    "includes": [":EXEC_FILE", "package.json", "data/System.json"],
+    "excludes": [],
+    "analyze": [
+      {
+        "type": "JSON",
+        "file": "data/System.json",
+        "position": ["advanced"],
+        "expect": { "method": "IS_TRUTHY", "result": false }
+      }
+    ]
+  },
+  "address": {
+    "title": {
+      "type": "JSON",
+      "file": "data/System.json",
+      "position": ["gameTitle"]
+    },
+    "width": {
+      "type": "JSON",
+      "file": "package.json",
+      "position": ["window", "width"]
+    },
+    "height": {
+      "type": "JSON",
+      "file": "package.json",
+      "position": ["window", "height"]
+    }
+  }
+}
