@@ -1,3 +1,5 @@
+type GetProps<C> = C extends (props: infer R) => any ? R : never;
+
 interface GameData {
   folderName: string;
   title: string;
@@ -44,5 +46,3 @@ interface GameData {
     [key: string]: any;
   };
 }
-
-type GetProps<C> = C extends (props: infer R) => any ? R : never;
