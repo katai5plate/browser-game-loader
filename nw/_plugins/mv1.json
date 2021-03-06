@@ -29,6 +29,11 @@
       "type": "JSON",
       "file": "package.json",
       "position": ["window", "height"]
+    },
+    "icon": {
+      "type": "HTML",
+      "file": ":EXEC_FILE",
+      "position": ["head", "link[rel=icon]", "!href"]
     }
   }
 }

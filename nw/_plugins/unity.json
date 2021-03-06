@@ -18,7 +18,7 @@
     "title": {
       "type": "HTML",
       "file": ":EXEC_FILE",
-      "position": ["head", "title"]
+      "position": ["head", "title", "!text"]
     },
     "width": {
       "type": "TEXT_REGEX",
@@ -29,6 +29,11 @@
       "type": "TEXT_REGEX",
       "file": ":EXEC_FILE",
       "position": ["canvas.style.height = \"(\\d+)px\"", 1]
+    },
+    "icon": {
+      "type": "HTML",
+      "file": ":EXEC_FILE",
+      "position": ["head", "link[rel=icon]", "!href"]
     }
   }
 }

@@ -49,6 +49,11 @@
         "Community_Basic.*?screenWidth\"\\s*:\\s*\"(\\d+)\".*?screenHeight\"\\s*:\\s*\"(\\d+)\"",
         2
       ]
+    },
+    "icon": {
+      "type": "HTML",
+      "file": ":EXEC_FILE",
+      "position": ["head", "link[rel=icon]", "!href"]
     }
   }
 }

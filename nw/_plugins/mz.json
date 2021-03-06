@@ -29,6 +29,11 @@
       "type": "JSON",
       "file": "data/System.json",
       "position": ["advanced", "screenHeight"]
+    },
+    "icon": {
+      "type": "HTML",
+      "file": ":EXEC_FILE",
+      "position": ["head", "link[rel=icon]", "!href"]
     }
   }
 }
