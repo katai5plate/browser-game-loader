@@ -6,6 +6,9 @@ interface GameData {
   type: string;
   updatedAt: string;
   playedAt: string;
+  width: number;
+  height: number;
+  icon?: string;
   exec?: {
     path: string;
     name: string;

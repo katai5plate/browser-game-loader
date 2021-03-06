@@ -8,10 +8,14 @@
   </head>
   <body>
     <script src="/_app/libs/fetch-polyfill/fetch.js"></script>
+    <script type="module" src="/_app/server/index.module.js"></script>
     <script type="module">
       import { html, render } from "/_app/utils.module.js";
       import App from "/_app/App.module.js";
       render(html`<${App} />`, document.body);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "F5") chrome.runtime.reload();
+      });
     </script>
   </body>
 </html>

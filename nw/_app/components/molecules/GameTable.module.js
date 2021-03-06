@@ -1,5 +1,5 @@
 // @ts-check
-import { html, isDir, Fragment, GAME_DIR } from "/_app/utils.module.js";
+import { html, isDir, Fragment, getGamePath } from "/_app/utils.module.js";
 
 /**
  * @param {{
@@ -26,12 +26,13 @@ export default (props) => html`
             <tr
               style="cursor:pointer"
               onclick="${() => {
+                console.log(g);
                 const path = [
                   "http://localhost:3000/_games",
                   g.folderName,
-                  "index.html",
+                  g.exec.path,
                 ].join("/");
-                const win = window.open(path);
+                // 使用中のモニターのうち小さい画面サイズを取得
                 const {
                   bounds: { width, height },
                 } = nw.Screen.screens.reduce((a, b) => {
@@ -40,7 +41,13 @@ export default (props) => html`
                   );
                   return _a < _b ? a : b;
                 });
-                win.resizeTo(width, height);
+                const win = nw.Window.open(path, {
+                  width: g.width || width,
+                  height: g.height || height,
+                  position: "center",
+                  icon: g.icon,
+                });
+                console.log({ win });
               }}"
             >
               <th>${index}</th>
