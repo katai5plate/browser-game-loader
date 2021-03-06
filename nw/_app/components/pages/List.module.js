@@ -2,15 +2,15 @@
 import { html, Fragment, mockGameData } from "/_app/utils.module.js";
 import GameTable from "/_app/components/molecules/GameTable.module.js";
 
-export default ({}) => html`
+export default () => html`
   <${Fragment}>
     <${GameTable}
       ...${(() => {
         /** @type {GetProps<typeof GameTable>} */
-        const props = {
+        const _props = {
           gameList: [mockGameData],
         };
-        return props;
+        return _props;
       })()}
     />
   <//>

@@ -1,14 +1,11 @@
+import { getSettings, getServerUrl, importLib } from "/_app/utils.module.js";
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-import { getMetaPath } from "/_app/utils.module.js";
 
 (() => {
-  const SETTINGS_JSON = JSON.parse(
-    fs.readFileSync(getMetaPath("settings.json"), { encoding: "utf8" })
-  );
-  const PORT = SETTINGS_JSON.port;
-  const URL = "http://localhost:" + PORT + "/";
+  const PORT = getSettings().port;
+  const URL = getServerUrl();
   const server = http.createServer(function (request, response) {
     console.log("request: ", request.url);
     let filePath = "." + request.url;

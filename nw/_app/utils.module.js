@@ -1,7 +1,10 @@
 // @ts-check
 import { h } from "/_app/libs/preact/dist/preact.module.js";
 export { render, Fragment } from "/_app/libs/preact/dist/preact.module.js";
-export { useState } from "/_app/libs/preact/hooks/dist/hooks.module.js";
+export {
+  useState,
+  useEffect,
+} from "/_app/libs/preact/hooks/dist/hooks.module.js";
 import htm from "/_app/libs/htm/dist/htm.module.js";
 const path = require("path");
 const fs = require("fs");
@@ -14,6 +17,40 @@ export const getGamePath = (folderName, ...paths) =>
   getPath("_games", folderName, ...paths);
 export const getMetaPath = (folderName, ...paths) =>
   getPath("_meta", folderName, ...paths);
+
+export const getSettings = () =>
+  JSON.parse(
+    fs.readFileSync(getMetaPath("settings.json"), { encoding: "utf8" })
+  );
+
+export const importLib = (...paths) =>
+  require(getPath("_app", "libs", ...paths));
+
+export const libs = {
+  /** @type {import('/_app/libs/slash/index.js')} */
+  slash: importLib("slash", "index.js"),
+  /** @type {import('/_app/libs/adm-zip/adm-zip.js')} */
+  admZip: importLib("adm-zip", "adm-zip.js"),
+};
+
+export const getServerUrl = (...paths) =>
+  libs.slash(
+    path.join("http://localhost:" + getSettings().port + "/", ...paths)
+  );
+
+export const INIT_MESSAGES = {
+  INIT: ["起動準備を開始しています..."],
+  FETCH_CHECK_SERVER: [
+    "サーバーを起動中...",
+    "「Windows セキュリティの重要な警告」が出た場合は、",
+    "「アクセスを許可する」をクリックしてください。",
+  ],
+  ERROR: [
+    "エラーが発生したため、起動できませんでした。",
+    "再インストールするか、",
+    "セキュリティやファイアウォールの設定を見直してください。",
+  ],
+};
 
 /**
  * ファイルパスがディレクトリかどうか調べる

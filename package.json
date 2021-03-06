@@ -18,11 +18,12 @@
     "setup:nw:move-sdk": "cpx \"./download/nw-sdk/**/*\" \"./nw/\"",
     "setup-libs": "run-s setup:libs:*:*",
     "setup:libs:bulma": "cpx -u \"./node_modules/bulma/{LICENSE,css/bulma.min.css}\" \"./nw/_app/libs/bulma/\"",
-    "setup:libs:adm-zip": "cpx -u \"./node_modules/adm-zip/{LICENSE,adm-zip.js}\" \"./nw/_app/libs/adm-zip/\"",
+    "setup:libs:adm-zip": "cpx -u \"./node_modules/adm-zip/{LICENSE,**/*.js}\" \"./nw/_app/libs/adm-zip/\"",
     "setup:libs:preact": "cpx -u \"./node_modules/preact/{LICENSE,dist/preact.module.js,hooks/dist/hooks.module.js}\" \"./nw/_app/libs/preact/\"",
     "setup:libs:preact:replace": "node scripts/replaceCode \"./nw/_app/libs/preact/hooks/dist/hooks.module.js\" \"from\\\"preact\\\"\" \"from\\\"/_app/libs/preact/dist/preact.module.js\\\"\"",
     "setup:libs:htm": "cpx -u \"./node_modules/htm/{LICENSE,dist/htm.module.js}\" \"./nw/_app/libs/htm/\"",
     "setup:libs:fetch-polyfill": "cpx -u \"./node_modules/fetch-polyfill/{LICENSE,fetch.js}\" \"./nw/_app/libs/fetch-polyfill/\"",
+    "setup:libs:slash": "cpx -u \"./node_modules/slash/{LICENSE,index.js}\" \"./nw/_app/libs/slash/\"",
     "setup:libs:nwjs:license": "node scripts/dl \"https://raw.githubusercontent.com/nwjs/nw.js/nw51/LICENSE\" \"LICENSE_nwjs\" && cpx -u \"./download/LICENSE_nwjs\" \"./nw/\""
   },
   "devDependencies": {
@@ -40,6 +41,7 @@
     "bulma": "^0.9.2",
     "fetch-polyfill": "^0.8.2",
     "htm": "^3.0.4",
-    "preact": "^10.5.12"
+    "preact": "^10.5.12",
+    "slash": "^3.0.0"
   }
 }
