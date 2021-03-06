@@ -5,7 +5,6 @@ import {
   useState,
   useEffect,
   getServerUrl,
-  INIT_MESSAGES,
 } from "/_app/utils.module.js";
 
 /**
@@ -15,11 +14,19 @@ import {
  * }} props
  */
 export default (props) => {
-  const [messages, setMessages] = useState(INIT_MESSAGES.INIT);
-  let isOK = false;
+  const [messages, setMessages] = useState(["起動準備を開始しています..."]);
+  const PHASES = {
+    INIT: 0,
+    CHECKED_SERVER: 1,
+  };
+  let phase = PHASES.INIT;
   useEffect(async () => {
-    if (isOK) return;
-    setMessages(INIT_MESSAGES.FETCH_CHECK_SERVER);
+    if (phase !== PHASES.INIT) return;
+    setMessages([
+      "サーバーを起動中...",
+      "「Windows セキュリティの重要な警告」が出た場合は、",
+      "「アクセスを許可する」をクリックしてください。",
+    ]);
     const FAIL_SAFE = 60;
     for (let trialCount = 0; trialCount < FAIL_SAFE; trialCount++) {
       try {
@@ -28,7 +35,7 @@ export default (props) => {
         ).json();
         console.log("check:", response);
         if (response.result === true) {
-          isOK = true;
+          phase = PHASES.CHECKED_SERVER;
           break;
         }
       } catch (error) {
@@ -37,7 +44,12 @@ export default (props) => {
       await new Promise((r) => setTimeout(r, 1000));
       trialCount++;
     }
-    if (!isOK) return setMessages(INIT_MESSAGES.ERROR);
+    if (phase !== PHASES.CHECKED_SERVER)
+      return setMessages([
+        "エラーが発生したため、起動できませんでした。",
+        "再インストールするか、",
+        "セキュリティやファイアウォールの設定を見直してください。",
+      ]);
     props.changeScreen("list");
   }, []);
   return html`

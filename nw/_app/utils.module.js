@@ -38,20 +38,6 @@ export const getServerUrl = (...paths) =>
     path.join("http://localhost:" + getSettings().port + "/", ...paths)
   );
 
-export const INIT_MESSAGES = {
-  INIT: ["起動準備を開始しています..."],
-  FETCH_CHECK_SERVER: [
-    "サーバーを起動中...",
-    "「Windows セキュリティの重要な警告」が出た場合は、",
-    "「アクセスを許可する」をクリックしてください。",
-  ],
-  ERROR: [
-    "エラーが発生したため、起動できませんでした。",
-    "再インストールするか、",
-    "セキュリティやファイアウォールの設定を見直してください。",
-  ],
-};
-
 /**
  * ファイルパスがディレクトリかどうか調べる
  * @param {string} filePath
