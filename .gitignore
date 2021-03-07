@@ -7,12 +7,14 @@ nw/*.dat
 nw/*.nexe
 nw/*.pak
 nw/*.bin
+nw/LICENSE_nwjs
 nw/credits.html
 nw/locales/
 nw/pnacl/
 nw/swiftshader/
 nw/_app/libs/
 nw/_games/*
+!nw/_games/.gitkeep
 
 # Logs
 logs
