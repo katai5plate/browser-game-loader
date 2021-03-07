@@ -33,6 +33,8 @@ interface GameData {
   };
   /** 取得されたファイルのリスト */
   files: string[];
+  /** エラーがある場合の文章 */
+  error?: string;
 }
 
 type _PluginFile_FileReader = {

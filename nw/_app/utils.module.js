@@ -106,6 +106,18 @@ export const analyzeGame = (folderName) => {
       return undefined;
     }
   };
+  /** @returns {GameData} */
+  const createErrorObject = (error) => ({
+    folderName,
+    error,
+    title: folderName,
+    alias: "",
+    isHTML: false,
+    type: "ERROR",
+    updatedAt: new Date().toJSON(),
+    files: [],
+  });
+  /** @type {GameData[]} */
   const tests = importAllPlugins().map(({ name, execFile, test, address }) => {
     let stringExecFile = "";
     if (typeof execFile !== "string") {
@@ -114,10 +126,9 @@ export const analyzeGame = (folderName) => {
         new RegExp(`${execFile.file}$`).test(fpf)
       );
       if (!execHintFile)
-        return {
-          folderName,
-          error: "execFile.file が見つかりません: " + stringExecFile,
-        };
+        return createErrorObject(
+          "execFile.file が見つかりません: " + stringExecFile
+        );
       stringExecFile = pickupAddress({ ...execFile, file: execHintFile });
     } else {
       // EXEC_FILE 文字列として取得
@@ -127,10 +138,7 @@ export const analyzeGame = (folderName) => {
       new RegExp(`${stringExecFile}$`).test(fpf)
     );
     if (!execFileFullPath)
-      return {
-        folderName,
-        error: "execFile が見つかりません: " + stringExecFile,
-      };
+      return createErrorObject("execFile が見つかりません: " + stringExecFile);
     const rootDir = path.dirname(execFileFullPath);
     const getRootDirPath = (...paths) =>
       path.join(
@@ -154,14 +162,13 @@ export const analyzeGame = (folderName) => {
             case "IS_TRUTHY":
               return !!value === result;
           }
-          return {
-            folderName,
-            error: "サポートされていないメソッドが指定されました: " + method,
-          };
+          return createErrorObject(
+            "サポートされていないメソッドが指定されました: " + method
+          );
         })
       : true;
     if (!passIncludes || !passExcludes || !passAnalyze)
-      return { folderName, error: "ファイル構造が合いません" };
+      return createErrorObject("ファイル構造が合いません");
     // 各種データの取得
     const fullPathToRelative = (fullPath) => {
       const chromeExtDirName = new DOMParser()
@@ -183,14 +190,18 @@ export const analyzeGame = (folderName) => {
       isHTML: /\.html$/.test(stringExecFile),
       type: name,
       updatedAt: new Date().toJSON(),
-      screenSize: {
-        width: address.width
-          ? Number(pickupAddress(address.width, getRootDirPath))
-          : undefined,
-        height: address.height
-          ? Number(pickupAddress(address.height, getRootDirPath))
-          : undefined,
-      },
+      screenSize: (() => {
+        if (!address.width || !address.height) return undefined;
+        const [pickedWidth, pickedHeight] = [
+          address.width,
+          address.height,
+        ].map((a) => pickupAddress(a, getRootDirPath));
+        if (!pickedWidth || !pickedHeight) return undefined;
+        return {
+          width: Number(pickedWidth),
+          height: Number(pickedHeight),
+        };
+      })(),
       icon: (() => {
         if (!address.icon) return undefined;
         const picked = pickupAddress(address.icon, getRootDirPath);
@@ -205,7 +216,13 @@ export const analyzeGame = (folderName) => {
     };
     return gameData;
   });
-  return tests;
+  // 通ったテストのうち、一番最後に通ったもの選出
+  const result = tests
+    .filter((x) => !x.error)
+    .map((x, index) => ({ index, ...x }))
+    .reduce((a, b) => (a.index > b.index ? a : b));
+  const { index, ...rest } = result;
+  return rest;
 };
 
 // console.log(111, analyzeGame("game-mv"));
