@@ -14,7 +14,7 @@ import {
 const fs = require("fs");
 const path = require("path");
 
-export default ({ changeScreen, folderName }) => {
+export default ({ changeScreen, folderName, setNextReload }) => {
   const data = importGameDataFile(folderName);
   const [viewFile, setViewFile] = useState("");
   const changeViewFile = (filePath) => {
@@ -52,6 +52,8 @@ export default ({ changeScreen, folderName }) => {
               position: "center",
               icon: data.icon,
             });
+            updateGameDataFile(folderName, { playedAt: new Date().toJSON() });
+            setNextReload(true);
           }}
         />
       </p>
@@ -77,7 +79,11 @@ export default ({ changeScreen, folderName }) => {
           class="button"
           value="ゲーム情報を更新する"
           onclick=${() => {
-            if (confirm("ゲームの表示名の入力データ以外は上書きされます。")) {
+            if (
+              confirm(
+                "ゲームの表示名の入力データ以外は上書きされます。壊れている場合は全て上書きされます。"
+              )
+            ) {
               createGameDataFile(folderName, true);
               reload();
             }

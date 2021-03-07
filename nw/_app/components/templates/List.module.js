@@ -16,7 +16,11 @@ export default ({ changeScreen, gameList }) => {
           class="button is-small"
           value="全ゲームフォルダのデータを作り直す"
           onclick=${() => {
-            if (confirm("ゲームの表示名の入力データ以外は上書きされます")) {
+            if (
+              confirm(
+                "ゲームの表示名の入力データ以外は上書きされます。壊れている場合は全て上書きされます。"
+              )
+            ) {
               if (confirm("後悔しませんね？")) {
                 createAllGameDataFile(true);
                 reload();
