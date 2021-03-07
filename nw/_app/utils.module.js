@@ -262,7 +262,21 @@ export const createAllGameDataFile = (overwrite = false) => {
   );
 };
 
-// console.log(111, createAllGameDataFile());
+export const importAllGameDataFile = () => {
+  return getAllGameFolderNames().reduce((p, name) => {
+    const gameDataFilePath = getGameDataFilePath(name);
+    if (!fs.existsSync(gameDataFilePath)) return p;
+    try {
+      return [
+        ...p,
+        JSON.parse(fs.readFileSync(gameDataFilePath, { encoding: "utf8" })),
+      ];
+    } catch (error) {
+      console.warn(error);
+      return p;
+    }
+  }, []);
+};
 
 /**
  * ゲームフォルダから index.html, package.json を検索
