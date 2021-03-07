@@ -15,6 +15,15 @@ export const getPath = (...paths) =>
   path.join(path.dirname(process.execPath), ...paths);
 export const getGamePath = (folderName, ...paths) =>
   getPath("_games", ...(folderName ? [folderName, ...paths] : []));
+export const getAllGameFolderPaths = () =>
+  fs
+    .readdirSync(getPath("_games"))
+    .map((p) => path.join(getPath("_games"), p))
+    .filter(isDir);
+export const getAllGameFolderNames = () =>
+  getAllGameFolderPaths().map((p) => path.parse(p).name);
+export const getGameDataFilePath = (folderName) =>
+  getPath("_games", folderName, "__data.json");
 export const getMetaPath = (...paths) => getPath("_meta", ...paths);
 
 export const getSettings = () =>
@@ -174,7 +183,6 @@ export const analyzeGame = (folderName) => {
       const chromeExtDirName = new DOMParser()
         .parseFromString(`<a href="/" />`, "text/html")
         .querySelector("a").href;
-      console.log(fullPath);
       return libs
         .slash(fullPath)
         .replace(new RegExp(`^.*?${folderName}/(.*?$)`), "$1")
@@ -225,14 +233,36 @@ export const analyzeGame = (folderName) => {
   return rest;
 };
 
-// console.log(111, analyzeGame("game-mv"));
-// console.log(
-//   111,
-//   fs
-//     .readdirSync(getGamePath())
-//     .filter((x) => !/zip$/.test(x))
-//     .map(analyzeGame)
-// );
+export const createGameDataFile = (folderName, overwrite = false) => {
+  const analyzedData = analyzeGame(folderName);
+  const gameDataFilePath = getGameDataFilePath(folderName);
+  const isExist = fs.existsSync(gameDataFilePath);
+  if (overwrite && isExist) {
+    fs.writeFileSync(
+      gameDataFilePath,
+      JSON.stringify({
+        ...analyzedData,
+        alias: JSON.parse(
+          fs.readFileSync(gameDataFilePath, {
+            encoding: "utf8",
+          })
+        ).alias,
+      })
+    );
+    console.log(`UPDATED: ${gameDataFilePath}`);
+  } else if (!isExist) {
+    fs.writeFileSync(gameDataFilePath, JSON.stringify({ ...analyzedData }));
+    console.log(`CREATED: ${gameDataFilePath}`);
+  }
+};
+
+export const createAllGameDataFile = (overwrite = false) => {
+  getAllGameFolderNames().forEach((name) =>
+    createGameDataFile(name, overwrite)
+  );
+};
+
+// console.log(111, createAllGameDataFile());
 
 /**
  * ゲームフォルダから index.html, package.json を検索
