@@ -163,6 +163,16 @@ export const analyzeGame = (folderName) => {
     if (!passIncludes || !passExcludes || !passAnalyze)
       return { folderName, error: "ファイル構造が合いません" };
     // 各種データの取得
+    const fullPathToRelative = (fullPath) => {
+      const chromeExtDirName = new DOMParser()
+        .parseFromString(`<a href="/" />`, "text/html")
+        .querySelector("a").href;
+      console.log(fullPath);
+      return libs
+        .slash(fullPath)
+        .replace(new RegExp(`^.*?${folderName}/(.*?$)`), "$1")
+        .replace(chromeExtDirName, "");
+    };
     /** @type {GameData} */
     const gameData = {
       folderName,
@@ -181,24 +191,31 @@ export const analyzeGame = (folderName) => {
           ? Number(pickupAddress(address.height, getRootDirPath))
           : undefined,
       },
-      icon: address.icon
-        ? pickupAddress(address.icon, getRootDirPath)
-        : undefined,
+      icon: (() => {
+        if (!address.icon) return undefined;
+        const picked = pickupAddress(address.icon, getRootDirPath);
+        if (!picked) return undefined;
+        return fullPathToRelative(picked);
+      })(),
       exec: {
-        path: execFileFullPath,
+        path: fullPathToRelative(execFileFullPath),
         name: stringExecFile,
       },
-      files: fullPathFiles.map((p) =>
-        libs.slash(p).replace(new RegExp(`^.*?${folderName}/(.*?$)`), "$1")
-      ),
+      files: fullPathFiles.map(fullPathToRelative),
     };
     return gameData;
   });
   return tests;
 };
 
-// console.log(111, analyzeGame("game-unity"));
-// console.log(111, fs.readdirSync(getGamePath()).map(analyzeGame));
+// console.log(111, analyzeGame("game-mv"));
+// console.log(
+//   111,
+//   fs
+//     .readdirSync(getGamePath())
+//     .filter((x) => !/zip$/.test(x))
+//     .map(analyzeGame)
+// );
 
 /**
  * ゲームフォルダから index.html, package.json を検索
