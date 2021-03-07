@@ -253,18 +253,24 @@ export const createGameDataFile = (folderName, overwrite = false) => {
   const gameDataFilePath = getGameDataFilePath(folderName);
   const isExist = fs.existsSync(gameDataFilePath);
   if (overwrite && isExist) {
-    fs.writeFileSync(
-      gameDataFilePath,
-      JSON.stringify({
-        ...analyzedData,
-        alias: JSON.parse(
-          fs.readFileSync(gameDataFilePath, {
-            encoding: "utf8",
-          })
-        ).alias,
-      })
-    );
-    console.log(`UPDATED: ${gameDataFilePath}`);
+    try {
+      fs.writeFileSync(
+        gameDataFilePath,
+        JSON.stringify({
+          ...analyzedData,
+          alias: JSON.parse(
+            fs.readFileSync(gameDataFilePath, {
+              encoding: "utf8",
+            })
+          ).alias,
+        })
+      );
+      console.log(`UPDATED: ${gameDataFilePath}`);
+    } catch (error) {
+      console.warn(error);
+      fs.writeFileSync(gameDataFilePath, JSON.stringify({ ...analyzedData }));
+      console.log(`CREATED: ${gameDataFilePath}`);
+    }
   } else if (!isExist) {
     fs.writeFileSync(gameDataFilePath, JSON.stringify({ ...analyzedData }));
     console.log(`CREATED: ${gameDataFilePath}`);
