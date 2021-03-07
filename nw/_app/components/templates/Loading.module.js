@@ -5,11 +5,13 @@ import {
   useState,
   useEffect,
   getServerUrl,
+  importAllGameDataFile,
 } from "/_app/utils.module.js";
 
 /**
  * @param {{
  * changeScreen: (screenName: string) => void
+ * setGameList: (gameData: GameData[]) => void
  * messages: string[]
  * }} props
  */
@@ -50,6 +52,16 @@ export default (props) => {
         "再インストールするか、",
         "セキュリティやファイアウォールの設定を見直してください。",
       ]);
+    setMessages(["ゲーム情報を取得中..."]);
+    try {
+      const gameList = importAllGameDataFile();
+      props.setGameList(gameList);
+    } catch (error) {
+      return setMessages([
+        "ゲーム情報の取得に失敗しました。",
+        "__data.json が一部破損している可能性があります。",
+      ]);
+    }
     props.changeScreen("list");
   }, []);
   return html`

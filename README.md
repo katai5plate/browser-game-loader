@@ -24,8 +24,8 @@ npm start
 ## TODO
 
 - [ ] zip をドラッグ＆ドロップすると解凍するようにする。
-- [ ] index.html の場所を探し、bgl.json を作成してデータを記録する
-- [ ] ゲームフォルダの package.json に応じて画面サイズを変更できるようにする。
+- [x] index.html の場所を探し、`__data.json` を作成してデータを記録する
+- [x] ゲームフォルダの package.json に応じて画面サイズを変更できるようにする。
 - [ ] DevTools の呼び出し許可を切り替えられるようにする。
   - package.json で `"chromium-args": "--disable-devtools"` することで無効化できる模様。
   - `(w=>w.on("devtools-opened",()=>w.closeDevTools()))(require('nw.gui').Window.get())` っていう手もある。
@@ -35,12 +35,12 @@ npm start
 - 動作対象
   - WEB 系ゲーム
     - ツクール MV/MZ
-      - [ ] ツクール MV
-      - [ ] ツクール MZ
-    - [ ] Unity WEBGL
+      - [x] ツクール MV
+      - [x] ツクール MZ
+    - [x] Unity WEBGL
     - その他
-      - [ ] Node.js 系
-      - [ ] HTML 全般
+      - [x] Node.js 系
+      - [x] HTML 全般
   - EXE 系ゲーム
     - ツクール 2000/2003
       - [ ] EXE あり

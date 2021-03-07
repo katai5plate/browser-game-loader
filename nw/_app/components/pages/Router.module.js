@@ -5,15 +5,16 @@ import List from "/_app/components/templates/List.module.js";
 
 export default () => {
   const [screen, changeScreen] = useState("loading");
+  const [gameList, setGameList] = useState([]);
 
   return html`
     <${Fragment}>
       ${(() => {
         switch (screen) {
           case "loading":
-            return html`<${Loading} ...${{ changeScreen }} />`;
+            return html`<${Loading} ...${{ changeScreen, setGameList }} />`;
           case "list":
-            return html`<${List} ...${{ changeScreen }} />`;
+            return html`<${List} ...${{ changeScreen, gameList }} />`;
         }
       })()}
     <//>

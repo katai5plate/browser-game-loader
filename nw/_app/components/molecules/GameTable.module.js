@@ -1,5 +1,5 @@
 // @ts-check
-import { html, isDir, Fragment, getGamePath } from "/_app/utils.module.js";
+import { html, Fragment } from "/_app/utils.module.js";
 
 /**
  * @param {{
@@ -11,11 +11,10 @@ export default (props) => html`
     <table class="table">
       <thead>
         <tr>
-          <th>id</th>
+          <th></th>
           <th>Folder</th>
           <th>Type</th>
           <th>Title</th>
-          <th>Alias</th>
           <th>Played at</th>
           <th>Updated at</th>
         </tr>
@@ -53,9 +52,10 @@ export default (props) => html`
               <th>${index}</th>
               <td>${g.folderName}</td>
               <td>${g.type}</td>
-              <td>${g.title}</td>
-              <td>${g.alias}</td>
-              <td>${new Date(g.playedAt).toLocaleString()}</td>
+              <td>${g.alias || g.title}</td>
+              <td>
+                ${g.playedAt ? new Date(g.playedAt).toLocaleString() : ""}
+              </td>
               <td>${new Date(g.updatedAt).toLocaleString()}</td>
             </tr>
           `

@@ -262,6 +262,9 @@ export const createAllGameDataFile = (overwrite = false) => {
   );
 };
 
+/**
+ * @returns {GameData[]}
+ */
 export const importAllGameDataFile = () => {
   return getAllGameFolderNames().reduce((p, name) => {
     const gameDataFilePath = getGameDataFilePath(name);
