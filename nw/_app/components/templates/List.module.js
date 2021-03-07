@@ -8,7 +8,7 @@ export default ({ changeScreen, gameList }) => {
       <${GameTable}
         ...${(() => {
           /** @type {GetProps<typeof GameTable>} */
-          const _props = { gameList };
+          const _props = { gameList, changeScreen };
           return _props;
         })()}
       />

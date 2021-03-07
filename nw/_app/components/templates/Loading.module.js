@@ -10,7 +10,7 @@ import {
 
 /**
  * @param {{
- * changeScreen: (screenName: string) => void
+ * changeScreen: (screenName: string, folderName?: string) => void
  * setGameList: (gameData: GameData[]) => void
  * messages: string[]
  * }} props

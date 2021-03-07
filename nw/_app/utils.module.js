@@ -9,6 +9,9 @@ import htm from "/_app/libs/htm/dist/htm.module.js";
 const path = require("path");
 const fs = require("fs");
 
+// @ts-expect-error
+export const reload = () => chrome.runtime.reload();
+
 export const html = htm.bind(h);
 
 export const getPath = (...paths) =>
@@ -256,10 +259,41 @@ export const createGameDataFile = (folderName, overwrite = false) => {
   }
 };
 
+export const updateGameDataFile = (folderName, mergeObj) => {
+  const analyzedData = analyzeGame(folderName);
+  const gameDataFilePath = getGameDataFilePath(folderName);
+  const isExist = fs.existsSync(gameDataFilePath);
+  if (isExist) {
+    fs.writeFileSync(
+      gameDataFilePath,
+      JSON.stringify({ ...analyzedData, ...mergeObj })
+    );
+    return console.log(`UPDATED: ${gameDataFilePath}`);
+  }
+  console.warn("NOT FOUND: " + gameDataFilePath);
+};
+
 export const createAllGameDataFile = (overwrite = false) => {
   getAllGameFolderNames().forEach((name) =>
     createGameDataFile(name, overwrite)
   );
+};
+
+/**
+ * @returns {GameData|undefined}
+ */
+export const importGameDataFile = (folderName) => {
+  const gameDataFilePath = getGameDataFilePath(folderName);
+  if (!fs.existsSync(gameDataFilePath)) {
+    console.warn("データが見つかりません: " + folderName);
+    return undefined;
+  }
+  try {
+    return JSON.parse(fs.readFileSync(gameDataFilePath, { encoding: "utf8" }));
+  } catch (error) {
+    console.warn(error);
+    return undefined;
+  }
 };
 
 /**
@@ -307,6 +341,19 @@ export const findGameMetaFiles = (gameDirName) => {
       const { base } = path.parse(filePath);
       return [...p, { name: base, path: filePath }];
     }, []);
+};
+
+/**
+ * マルチモニターのうち一番小さい画面サイズを取得
+ */
+export const getMonitorMinSize = () => {
+  const { bounds } = nw.Screen.screens.reduce((a, b) => {
+    const [_a, _b] = [a, b].map(
+      ({ bounds: { width, height } }) => width * height
+    );
+    return _a < _b ? a : b;
+  });
+  return bounds;
 };
 
 /** @type {GameData} */

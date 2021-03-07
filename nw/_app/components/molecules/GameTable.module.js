@@ -4,6 +4,7 @@ import { html, Fragment } from "/_app/utils.module.js";
 /**
  * @param {{
  * gameList: GameData[]
+ * changeScreen: (screenName: string, folderName?: string) => void
  * }} props
  */
 export default (props) => html`
@@ -25,28 +26,7 @@ export default (props) => html`
             <tr
               style="cursor:pointer"
               onclick="${() => {
-                console.log(g);
-                const path = [
-                  "http://localhost:3000/_games",
-                  g.folderName,
-                  g.exec.path,
-                ].join("/");
-                // 使用中のモニターのうち小さい画面サイズを取得
-                const {
-                  bounds: { width, height },
-                } = nw.Screen.screens.reduce((a, b) => {
-                  const [_a, _b] = [a, b].map(
-                    ({ bounds: { width, height } }) => width * height
-                  );
-                  return _a < _b ? a : b;
-                });
-                const win = nw.Window.open(path, {
-                  width: g?.screenSize?.width || width,
-                  height: g?.screenSize?.height || height,
-                  position: "center",
-                  icon: g.icon,
-                });
-                console.log({ win });
+                props.changeScreen("details", g.folderName);
               }}"
             >
               <th>${index}</th>
