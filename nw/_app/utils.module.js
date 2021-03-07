@@ -292,7 +292,7 @@ export const createAllGameDataFile = (overwrite = false) => {
 };
 
 /**
- * @returns {GameData|undefined}
+ * @returns {GameData}
  */
 export const importGameDataFile = (folderName) => {
   const gameDataFilePath = getGameDataFilePath(folderName);
@@ -313,13 +313,10 @@ export const importGameDataFile = (folderName) => {
  */
 export const importAllGameDataFile = () => {
   return getAllGameFolderNames().reduce((p, name) => {
-    const gameDataFilePath = getGameDataFilePath(name);
-    if (!fs.existsSync(gameDataFilePath)) return p;
+    const result = importGameDataFile(name);
+    if (!result) return p;
     try {
-      return [
-        ...p,
-        JSON.parse(fs.readFileSync(gameDataFilePath, { encoding: "utf8" })),
-      ];
+      return [...p, result];
     } catch (error) {
       console.warn(error);
       return p;
