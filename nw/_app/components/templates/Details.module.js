@@ -7,9 +7,9 @@ import {
   reload,
   createGameDataFile,
   useState,
-  getGamePath,
   getMonitorMinSize,
   getServerUrl,
+  getPath,
 } from "/_app/utils.module.js";
 const fs = require("fs");
 const path = require("path");
@@ -17,16 +17,17 @@ const path = require("path");
 export default ({ changeScreen, folderName }) => {
   const data = importGameDataFile(folderName);
   const [viewFile, setViewFile] = useState("");
-  let fileSource = "";
   const changeViewFile = (filePath) => {
-    console.log(filePath);
-    setViewFile(filePath);
-    fileSource = fs.readFileSync(filePath, {
-      encoding: "utf8",
-    });
-    console.log(fileSource);
+    const fullPath = getPath("_games", filePath);
+    console.log(fullPath);
+    setViewFile(
+      fs.readFileSync(fullPath, {
+        encoding: "utf8",
+      })
+    );
   };
   if (!data) changeScreen("list");
+  console.log(data);
   return html`
     <${Fragment}>
       <p>
@@ -45,15 +46,12 @@ export default ({ changeScreen, folderName }) => {
           value="プレイする"
           onclick=${() => {
             const { width, height } = getMonitorMinSize();
-            nw.Window.open(
-              getServerUrl("_games", data.folderName, data.exec.path),
-              {
-                width: data?.screenSize?.width || width,
-                height: data?.screenSize?.height || height,
-                position: "center",
-                icon: data.icon,
-              }
-            );
+            nw.Window.open(getServerUrl("_games", data.exec.path), {
+              width: data?.screenSize?.width || width,
+              height: data?.screenSize?.height || height,
+              position: "center",
+              icon: data.icon,
+            });
           }}
         />
       </p>
@@ -103,8 +101,7 @@ export default ({ changeScreen, folderName }) => {
             )}
         </select>
       </p>
-      ${viewFile &&
-      html`<textarea width="816" height="624">${fileSource}</textarea>`}
+      ${viewFile && html`<pre>${viewFile}</pre>`}
     <//>
   `;
 };

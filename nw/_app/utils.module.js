@@ -56,6 +56,19 @@ export const libs = {
   admZip: importLib("adm-zip", "adm-zip.js"),
 };
 
+/**
+ * 2 バイト文字を含んでいてもバックスラッシュをスラッシュ化する
+ */
+export const toSlash = (pathPhrase) => {
+  const { root, dir, name, ext } = path.parse(pathPhrase);
+  const encodedPath = path.join(
+    root,
+    ...dir.replace(root, "").split(/\\|\//g).map(encodeURIComponent),
+    encodeURIComponent(name) + encodeURIComponent(ext)
+  );
+  return decodeURIComponent(libs.slash(encodedPath));
+};
+
 export const getServerUrl = (...paths) =>
   libs.slash(
     path.join("http://localhost:" + getSettings().port + "/", ...paths)
@@ -186,9 +199,8 @@ export const analyzeGame = (folderName) => {
       const chromeExtDirName = new DOMParser()
         .parseFromString(`<a href="/" />`, "text/html")
         .querySelector("a").href;
-      return libs
-        .slash(fullPath)
-        .replace(new RegExp(`^.*?${folderName}/(.*?$)`), "$1")
+      return toSlash(fullPath)
+        .replace(new RegExp(`^.*?(${folderName}/.*?$)`), "$1")
         .replace(chromeExtDirName, "");
     };
     /** @type {GameData} */
