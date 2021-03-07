@@ -14,13 +14,24 @@ export const html = htm.bind(h);
 export const getPath = (...paths) =>
   path.join(path.dirname(process.execPath), ...paths);
 export const getGamePath = (folderName, ...paths) =>
-  getPath("_games", folderName, ...paths);
-export const getMetaPath = (folderName, ...paths) =>
-  getPath("_meta", folderName, ...paths);
+  getPath("_games", ...(folderName ? [folderName, ...paths] : []));
+export const getMetaPath = (...paths) => getPath("_meta", ...paths);
 
 export const getSettings = () =>
   JSON.parse(
     fs.readFileSync(getMetaPath("settings.json"), { encoding: "utf8" })
+  );
+
+const getPluginPath = (...paths) => getPath("_plugins", ...paths);
+
+/**
+ * @returns {PluginFile[]}
+ */
+const importAllPlugins = () =>
+  getSettings().pluginPriority.map((pluginName) =>
+    JSON.parse(
+      fs.readFileSync(getPluginPath(`${pluginName}.json`), { encoding: "utf8" })
+    )
   );
 
 export const importLib = (...paths) =>
@@ -50,6 +61,144 @@ export const isDir = (filePath) => {
     return false;
   }
 };
+
+/**
+ * ゲームフォルダから GameData を取得
+ * @param {string} folderName
+ */
+export const analyzeGame = (folderName) => {
+  // ファイルリストを取得
+  let fullPathFiles = [];
+  const finder = (x) => {
+    for (let filePath of x) {
+      if (isDir(filePath)) {
+        finder(
+          fs.readdirSync(filePath).map((name) => path.join(filePath, name))
+        );
+      } else {
+        fullPathFiles = [...fullPathFiles, filePath];
+      }
+    }
+  };
+  finder([getGamePath(folderName)]);
+  // プラグインの定義ファイルを使用した検証を行う
+  const pickupAddress = ({ type, file, position }, getRootDirPath) => {
+    try {
+      const fileSource = fs.readFileSync(
+        getRootDirPath ? getRootDirPath(file) : file,
+        { encoding: "utf8" }
+      );
+      switch (type) {
+        case "HTML":
+          const selector = position.slice(0, -1).join(" ");
+          const [attrName] = position.slice(-1);
+          return new DOMParser()
+            .parseFromString(fileSource, "text/html")
+            .querySelector(selector)[attrName];
+        case "JSON":
+          return position.reduce((p, c) => p[c], JSON.parse(fileSource));
+        case "TEXT_REGEX":
+          const [regex, index] = position;
+          return fileSource.match(new RegExp(regex))[index];
+      }
+    } catch (error) {
+      console.warn(error);
+      return undefined;
+    }
+  };
+  const tests = importAllPlugins().map(({ name, execFile, test, address }) => {
+    let stringExecFile = "";
+    if (typeof execFile !== "string") {
+      // EXEC_FILE 動的取得
+      const execHintFile = fullPathFiles.find((fpf) =>
+        new RegExp(`${execFile.file}$`).test(fpf)
+      );
+      if (!execHintFile)
+        return {
+          folderName,
+          error: "execFile.file が見つかりません: " + stringExecFile,
+        };
+      stringExecFile = pickupAddress({ ...execFile, file: execHintFile });
+    } else {
+      // EXEC_FILE 文字列として取得
+      stringExecFile = execFile;
+    }
+    const execFileFullPath = fullPathFiles.find((fpf) =>
+      new RegExp(`${stringExecFile}$`).test(fpf)
+    );
+    if (!execFileFullPath)
+      return {
+        folderName,
+        error: "execFile が見つかりません: " + stringExecFile,
+      };
+    const rootDir = path.dirname(execFileFullPath);
+    const getRootDirPath = (...paths) =>
+      path.join(
+        rootDir,
+        ...paths.map((p) =>
+          p === ":EXEC_FILE" ? path.basename(execFileFullPath) : p
+        )
+      );
+    // バリデーション
+    const passIncludes = test.includes.every((file) =>
+      fs.existsSync(getRootDirPath(file))
+    );
+    const passExcludes = test.excludes.every(
+      (file) => !fs.existsSync(getRootDirPath(file, getRootDirPath))
+    );
+    const passAnalyze = test.analyze
+      ? test.analyze.every((testcase) => {
+          const value = pickupAddress(testcase, getRootDirPath);
+          const { method, result } = testcase.expect;
+          switch (method) {
+            case "IS_TRUTHY":
+              return !!value === result;
+          }
+          return {
+            folderName,
+            error: "サポートされていないメソッドが指定されました: " + method,
+          };
+        })
+      : true;
+    if (!passIncludes || !passExcludes || !passAnalyze)
+      return { folderName, error: "ファイル構造が合いません" };
+    // 各種データの取得
+    /** @type {GameData} */
+    const gameData = {
+      folderName,
+      title: address.title
+        ? pickupAddress(address.title, getRootDirPath)
+        : undefined,
+      alias: "",
+      isHTML: /\.html$/.test(stringExecFile),
+      type: name,
+      updatedAt: new Date().toJSON(),
+      screenSize: {
+        width: address.width
+          ? Number(pickupAddress(address.width, getRootDirPath))
+          : undefined,
+        height: address.height
+          ? Number(pickupAddress(address.height, getRootDirPath))
+          : undefined,
+      },
+      icon: address.icon
+        ? pickupAddress(address.icon, getRootDirPath)
+        : undefined,
+      exec: {
+        path: execFileFullPath,
+        name: stringExecFile,
+      },
+      files: fullPathFiles.map((p) =>
+        libs.slash(p).replace(new RegExp(`^.*?${folderName}/(.*?$)`), "$1")
+      ),
+    };
+    return gameData;
+  });
+  return tests;
+};
+
+// console.log(111, analyzeGame("game-unity"));
+// console.log(111, fs.readdirSync(getGamePath()).map(analyzeGame));
 
 /**
  * ゲームフォルダから index.html, package.json を検索

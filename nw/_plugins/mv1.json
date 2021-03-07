@@ -33,7 +33,7 @@
     "icon": {
       "type": "HTML",
       "file": ":EXEC_FILE",
-      "position": ["head", "link[rel=icon]", "!href"]
+      "position": ["head", "link[rel=icon]", "href"]
     }
   }
 }

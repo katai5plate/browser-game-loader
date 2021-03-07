@@ -1,4 +1,4 @@
 {
   "port": 3000,
-  "pluginPriority": ["web", ["node", ["mz", "mv1", "mv2"]], "unity"]
+  "pluginPriority": ["web", "node", "mz", "mv1", "mv2", "unity"]
 }

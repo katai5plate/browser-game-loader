@@ -9,7 +9,7 @@
       {
         "type": "HTML",
         "file": ":EXEC_FILE",
-        "position": ["body", "#unity-container", ".unity-desktop"],
+        "position": ["body", "#unity-container.unity-desktop", "tagName"],
         "expect": { "method": "IS_TRUTHY", "result": true }
       }
     ]
@@ -18,7 +18,7 @@
     "title": {
       "type": "HTML",
       "file": ":EXEC_FILE",
-      "position": ["head", "title", "!text"]
+      "position": ["head", "title", "text"]
     },
     "width": {
       "type": "TEXT_REGEX",
@@ -33,7 +33,7 @@
     "icon": {
       "type": "HTML",
       "file": ":EXEC_FILE",
-      "position": ["head", "link[rel=icon]", "!href"]
+      "position": ["head", "link[rel=icon]", "href"]
     }
   }
 }

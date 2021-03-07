@@ -22,7 +22,8 @@
         "type": "TEXT_REGEX",
         "file": "js/plugins.js",
         "position": [
-          "\"name\"\\s+:\\s+\"Community_Basic\"\\s+,\\s+\"status\"\\s+:\\s+true"
+          "\"name\"\\s*:\\s*\"Community_Basic\"\\s*,\\s*\"status\"\\s*:\\s*true",
+          0
         ],
         "expect": { "method": "IS_TRUTHY", "result": true }
       }
@@ -53,7 +54,7 @@
     "icon": {
       "type": "HTML",
       "file": ":EXEC_FILE",
-      "position": ["head", "link[rel=icon]", "!href"]
+      "position": ["head", "link[rel=icon]", "href"]
     }
   }
 }

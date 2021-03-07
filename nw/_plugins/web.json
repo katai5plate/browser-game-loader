@@ -10,7 +10,7 @@
     "title": {
       "type": "HTML",
       "file": ":EXEC_FILE",
-      "position": ["head", "title", "!text"]
+      "position": ["head", "title", "text"]
     }
   }
 }

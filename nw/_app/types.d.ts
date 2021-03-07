@@ -6,7 +6,7 @@ interface GameData {
   /** 取得されたゲームタイトル */
   title: string;
   /** ユーザーが自由に変更可能なゲームタイトル */
-  alias: string;
+  alias?: string;
   /** HTML ゲームか */
   isHTML: boolean;
   /** 取得されたゲームタイプ (プラグインによって選出) */
@@ -14,7 +14,7 @@ interface GameData {
   /** 更新日時 */
   updatedAt: string;
   /** プレイ日時 */
-  playedAt: string;
+  playedAt?: string;
   /** 取得された画面の大きさ */
   screenSize?: {
     /** 幅 */
@@ -43,8 +43,8 @@ type _PluginFile_FileReader = {
   /**
    * ### HTML:
    * querySelector のスペース区切り。
-   * 末尾要素の文字列先頭に ! をつけた文字列でプロパティ取得。
-   * `["head", "title", "!text"]`
+   * 末尾要素はプロパティ取得。
+   * `["head", "title", "text"]`
    * =>`document.querySelector("head title").text`
    * ### JSON:
    * 要素へのパス。
@@ -66,7 +66,7 @@ type _PluginFile_Analyze = _PluginFile_FileReader & {
     method: "IS_TRUTHY"; // 適宜追加する
     /** 結果 */
     result: boolean;
-  }[];
+  };
 };
 
 interface PluginFile {
@@ -83,13 +83,13 @@ interface PluginFile {
     /** 存在してはいけないファイル (:EXEC_FILE 使用可) */
     excludes: [];
     /** ファイル構造の解析 */
-    analyze: _PluginFile_Analyze[];
+    analyze?: _PluginFile_Analyze[];
   };
   /** ゲームデータに代入する値の取得方法 */
   address: {
-    title: _PluginFile_FileReader;
-    width: _PluginFile_FileReader;
-    height: _PluginFile_FileReader;
-    icon: _PluginFile_FileReader;
+    title?: _PluginFile_FileReader;
+    width?: _PluginFile_FileReader;
+    height?: _PluginFile_FileReader;
+    icon?: _PluginFile_FileReader;
   };
 }
