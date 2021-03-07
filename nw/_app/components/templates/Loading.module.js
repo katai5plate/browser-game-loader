@@ -57,6 +57,7 @@ export default (props) => {
       const gameList = importAllGameDataFile();
       props.setGameList(gameList);
     } catch (error) {
+      console.warn(error);
       return setMessages([
         "ゲーム情報の取得に失敗しました。",
         "__data.json が一部破損している可能性があります。",
