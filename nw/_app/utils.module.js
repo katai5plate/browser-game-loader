@@ -27,6 +27,13 @@ export const getAllGameFolderNames = () =>
   getAllGameFolderPaths().map((p) => path.parse(p).name);
 export const getGameDataFilePath = (folderName) =>
   getPath("_games", folderName, "__data.json");
+export const getAllGameZipPaths = () =>
+  fs
+    .readdirSync(getPath("_games"))
+    .map((p) => path.join(getPath("_games"), p))
+    .filter((p) => path.extname(p) === ".zip");
+export const getAllGameZipNames = () =>
+  getAllGameZipPaths().map((p) => path.parse(p).name);
 export const getMetaPath = (...paths) => getPath("_meta", ...paths);
 
 export const getSettings = () =>
@@ -370,6 +377,31 @@ export const getMonitorMinSize = () => {
   });
   return bounds;
 };
+
+export const extractZip = (zipname, removeZip = false) => {
+  if (fs.existsSync(getGamePath(zipname))) {
+    console.warn("解凍先が存在します: " + zipname);
+    return;
+  }
+  const Zip = libs.admZip;
+  const zip = Zip(getGamePath(`${zipname}.zip`));
+  zip.extractAllTo(getGamePath(), true);
+  if (removeZip) fs.unlinkSync(getGamePath(`${zipname}.zip`));
+};
+
+export const importAllGamesFromZip = (
+  removeZip = false,
+  progressFn = ({}) => {}
+) => {
+  getAllGameZipNames().forEach((zipname, index, { length }) => {
+    progressFn({ zipname, index, length, progress: (index / length) * 100 });
+    extractZip(zipname, removeZip);
+    createGameDataFile(zipname);
+  });
+  progressFn({ progress: 100 });
+};
+
+// console.log(importAllGamesFromZip(false, console.log));
 
 /** @type {GameData} */
 export const mockGameData = {
