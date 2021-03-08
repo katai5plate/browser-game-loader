@@ -10,7 +10,7 @@
     "setup": "run-s setup:*:*",
     "setup-nw": "run-s setup:nw:*",
     "setup:nw:clean-download": "node scripts/isolate \"download\" \".gitkeep\"",
-    "setup:nw:clean-nw": "node scripts/isolate \"nw\" \"index.html,package.json,LICENSES.md,README.txt,_app,_games,_plugins\"",
+    "setup:nw:clean-nw": "node scripts/isolate \"nw\" \"index.html,package.json,LICENSES.md,README.txt,_app,_games,_plugins,_meta\"",
     "setup:nw:delete-sdk": "rimraf \"./download/nw-sdk.zip\" \"./download/nw-sdk/*\"",
     "setup:nw:download-sdk": "node scripts/dl \"https://dl.nwjs.io/v0.51.2/nwjs-sdk-v0.51.2-win-x64.zip\" \"nw-sdk.zip\"",
     "setup:nw:unzip-sdk": "rimraf \"./download/nw-sdk/\" && node scripts/unzip \"nw-sdk.zip\"",
